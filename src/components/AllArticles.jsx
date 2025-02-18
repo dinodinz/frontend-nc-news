@@ -15,7 +15,6 @@ const AllArticles = () => {
   return (
     <>
       {articles.map((article) => {
-        // console.log("ENTRY", article);
         return (
           <div key={article.article_id} className="article-tile">
             <Link to={`/article/${article.article_id}`}>
