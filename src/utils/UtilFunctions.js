@@ -21,3 +21,7 @@ export const getTimestamp = (tzformat) => {
     return `${Minutes} minute${Minutes > 1 ? "s" : ""} ago`;
   }
 };
+
+export const closePopup = () => {
+  document.getElementById("pop-up-error").style.display = "none";
+};
