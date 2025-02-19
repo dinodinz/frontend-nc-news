@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
-import { getArticleById } from "../utils/Api";
+import { getArticleById, getCommentsByArticleId } from "../utils/Api";
 import { useParams, Link } from "react-router-dom";
-import { ThumbsUp, ThumbsDown, ChatTeardropText } from "@phosphor-icons/react";
+import {
+  ThumbsUp,
+  ThumbsDown,
+  ChatTeardropText,
+  Heart,
+} from "@phosphor-icons/react";
+import Comments from "./Comments";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
+  const [allComments, setAllComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const { article_id } = useParams();
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
       setArticle(article);
+    });
+
+    getCommentsByArticleId(article_id).then((allComments) => {
+      setAllComments(allComments);
       setIsLoading(false);
     });
   }, []);
@@ -24,7 +36,7 @@ const Article = () => {
   }
 
   return (
-    <div id="article-container">
+    <div id="article-page-container">
       <div className="article-page-buttons">
         <Link
           className="article-page-author-link"
@@ -33,16 +45,10 @@ const Article = () => {
           <p className="article-page-author">{article.author}</p>
         </Link>
         <div className="like-dislike-button">
-          <p className="article-tile-thumbs-up-icon">
-            <ThumbsUp size={25} />
+          <p className="article-tile-heart-icon">
+            <Heart size={25} />
           </p>
-          <p className="article-tile-thumbs-up-count">
-            <span>{article.votes}</span>
-          </p>
-          <p className="article-tile-thumbs-up-icon">
-            <ThumbsDown size={25} />
-          </p>
-          <p className="article-tile-thumbs-up-count">
+          <p className="article-tile-heart-count">
             <span>{article.votes}</span>
           </p>
         </div>
@@ -53,6 +59,7 @@ const Article = () => {
       </div>
       <div className="article-comments-container">
         <input placeholder="Comments"></input>
+        <Comments allComments={allComments} />
       </div>
     </div>
   );

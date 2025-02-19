@@ -5,12 +5,22 @@ import { Link } from "react-router-dom";
 
 const AllArticles = () => {
   const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getArticles().then((allArticles) => {
       setArticles(allArticles);
+      setIsLoading(false);
     });
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="loading-msg-container">
+        <p className="loading-msg">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -27,22 +37,25 @@ const AllArticles = () => {
               >
                 <p className="article-tile-author">{article.author}</p>
               </Link>
-              <Link to={`/article/${article.article_id}`}>
-                <p className="article-tile-thumbs-up-icon">
-                  <ThumbsUp size={25} />
+              <div className="article-tile-like-dislike-button-container">
+                <Link
+                  className="article-tile-like-dislike-button"
+                  to={`/article/${article.article_id}`}
+                >
+                  <p className="article-tile-thumbs-up-icon">
+                    <ThumbsUp size={25} />
+                  </p>
+                  <p className="article-tile-thumbs-up-count">
+                    <span>{article.votes}</span>
+                  </p>
+                  <p className="article-tile-comment-icon">
+                    <ChatTeardropText size={25} />
+                  </p>
+                </Link>
+                <p className="article-tile-comment-count">
+                  {article.comment_count}
                 </p>
-              </Link>
-              <p className="article-tile-thumbs-up-count">
-                <span>{article.votes}</span>
-              </p>
-              <Link to={`/article/${article.article_id}`}>
-                <p className="article-tile-comment-icon">
-                  <ChatTeardropText size={25} />
-                </p>
-              </Link>
-              <p className="article-tile-comment-count">
-                {article.comment_count}{" "}
-              </p>
+              </div>
             </div>
             <p className="article-tile-title">{article.title} </p>
           </div>

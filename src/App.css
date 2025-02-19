@@ -1,7 +1,6 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -43,7 +42,7 @@
 
 .universal-container {
   height: 100vh;
-  width: 100%; /*<<<<---------*/
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,7 +53,7 @@
 #header {
   display: flex;
   flex-direction: row;
-  width: 100%; /*<<<<---------*/
+  width: 100%;
 }
 
 .header-toolbar {
@@ -91,12 +90,12 @@
 #main-content-container {
   display: flex;
   flex-direction: column;
-  width: 100%; /*<<<<---------*/
+  width: 100%;
 }
 
 .header-logo h1 {
   margin-bottom: 0px;
-  margin-top: 15px;
+  margin-top: 25px;
 }
 .header-logo p {
   margin-left: 10px;
@@ -113,7 +112,7 @@
 
 .article-tile,
 .article-tile img {
-  width: 100%; /*<<<<---------*/
+  width: 100%;
 }
 
 .article-tile {
@@ -124,7 +123,8 @@
   display: flex;
   flex-direction: row;
   gap: 0 10px;
-  padding-left: 15px;
+
+  justify-content: space-between;
 }
 
 .article-tile-info > * {
@@ -140,20 +140,31 @@
 .article-tile-author {
   text-align: left;
   font-weight: bold;
+  color: #646cff;
 }
 
-.article-tile-thumbs-up-icon,
+.article-tile-like-dislike-button-container {
+  display: flex;
+  gap: 0 5px;
+  padding-right: 25px;
+}
+
+.article-tile-like-dislike-button {
+  display: flex;
+  gap: 0 5px;
+}
+
+.article-tile-heart-icon,
 .article-tile-comment-icon {
   margin-left: 10px;
 }
 
 .article-tile-author-link {
   color: inherit;
+  padding-left: 15px;
 }
 
 .header-login-button {
-  /* width: 100%;
-  height: 100%; */
   padding-right: 50px;
 }
 
@@ -165,13 +176,19 @@
   border: 1px rgb(0, 0, 0) solid;
 }
 
-/*========= ARTICLE PAGE =========*/
-
-#article-container {
-  width: 100%;
+.article-tile-thumbs-up-count {
+  color: rgba(255, 255, 255, 0.87);
 }
 
-#article-container img {
+/*========= ARTICLE PAGE =========*/
+
+#article-page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#article-page-container img {
   width: 100%;
 }
 
@@ -192,12 +209,18 @@
 
 .like-dislike-button {
   display: flex;
-  padding-right: 15px;
+  padding-right: 30px;
   gap: 0 10px;
+  color: #646cff;
 }
 
 .like-dislike-button * {
   margin-bottom: 5px;
+}
+
+.article-page-author {
+  color: #646cff;
+  font-weight: bold;
 }
 
 .article-page-author-link {
@@ -213,16 +236,72 @@
 
 .article-comments-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 20vh;
-  justify-content: center;
+  height: 100%;
 }
 
 .article-comments-container input {
   width: 70%;
-  height: 25%;
+  height: 30px;
   border-radius: 10px;
   border: 0px;
   background-color: #f3f3f3;
   padding-left: 5px;
+  color: black;
+  margin: auto auto;
+}
+
+.comment-list div li {
+  list-style-type: none;
+}
+
+.single-comment span {
+  color: #646cff;
+  font-weight: bold;
+  /* float: right; */
+  margin-right: 20px;
+}
+.single-comment p {
+  color: #646cff;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.single-comment {
+  list-style-type: none;
+  margin-bottom: 40px;
+}
+
+.comment-list {
+  text-align: left;
+  margin: 20px auto;
+}
+
+.comment-author-timestamp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article-tile-heart-count {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.comment-author-timestamp p {
+  color: #646cff;
+  font-size: 0.8rem;
+}
+
+.comment-like-dislike-button {
+  display: flex;
+  gap: 0 15px;
+  align-items: center;
+}
+.article-page-vote-count {
+  margin-top: 8px;
+}
+
+.article-page-vote-count span {
+  font-size: 0.9rem;
 }
