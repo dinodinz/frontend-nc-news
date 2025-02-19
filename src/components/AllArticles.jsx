@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/Api.js";
 import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const AllArticles = () => {
   const [articles, setArticles] = useState([]);

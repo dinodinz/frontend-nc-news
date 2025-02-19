@@ -93,8 +93,12 @@ const Article = () => {
         <p>{article.body}</p>
       </div>
       <div className="article-comments-container">
-        <input placeholder="Comments"></input>
-        <Comments article_id={article_id} />
+        {/* <div className="comment-input-btn-container">
+          <input placeholder="Comments"></input>
+          <button type="submit">Send</button>
+        </div> */}
+
+        <Comments article={article} />
       </div>
     </div>
   );
