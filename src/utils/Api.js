@@ -30,3 +30,18 @@ export const updateArticleByArticleId = (article_id, hasVoted) => {
       return response.data.editedArticle;
     });
 };
+
+export const getUserByUsername = (username) => {
+  return ncNews.get(`/users/${username}`).then((response) => {
+    return response.data.user;
+  });
+};
+
+export const addCommentByArticleId = (article_id, body, username) => {
+  const commentBody = { username: username, body: body };
+  return ncNews
+    .post(`articles/${article_id}/comments`, commentBody)
+    .then((response) => {
+      return response.data.postedComment;
+    });
+};
