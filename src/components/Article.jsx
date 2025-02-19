@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getArticleById, getCommentsByArticleId } from "../utils/Api";
+import { getArticleById, updateArticleByArticleId } from "../utils/Api";
 import { useParams, Link } from "react-router-dom";
 import {
   ThumbsUp,
@@ -11,21 +11,27 @@ import Comments from "./Comments";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
-  const [allComments, setAllComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [voteCount, setVoteCount] = useState(0);
   const { article_id } = useParams();
+
+  function handleVoteClick() {
+    updateArticleByArticleId(article.article_id).then((updatedArticle) => {
+      setVoteCount(updatedArticle.votes);
+    });
+  }
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
       setArticle(article);
-    });
-
-    getCommentsByArticleId(article_id).then((allComments) => {
-      setAllComments(allComments);
       setIsLoading(false);
     });
-  }, []);
+
+    // getCommentsByArticleId(article_id).then((allComments) => {
+    //   setAllComments(allComments);
+    //   setIsLoading(false);
+    // });
+  }, [voteCount]);
 
   if (isLoading) {
     return (
@@ -45,7 +51,7 @@ const Article = () => {
           <p className="article-page-author">{article.author}</p>
         </Link>
         <div className="like-dislike-button">
-          <p className="article-tile-heart-icon">
+          <p className="article-tile-heart-icon" onClick={handleVoteClick}>
             <Heart size={25} />
           </p>
           <p className="article-tile-heart-count">
@@ -59,7 +65,7 @@ const Article = () => {
       </div>
       <div className="article-comments-container">
         <input placeholder="Comments"></input>
-        <Comments allComments={allComments} />
+        <Comments article_id={article_id} />
       </div>
     </div>
   );
