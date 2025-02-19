@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import { getArticleById, updateArticleByArticleId } from "../utils/Api";
 import { closePopup } from "../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
-import {
-  ThumbsUp,
-  ThumbsDown,
-  ChatTeardropText,
-  Heart,
-} from "@phosphor-icons/react";
+import { Heart } from "@phosphor-icons/react";
 import Comments from "./Comments";
 
 const Article = () => {
