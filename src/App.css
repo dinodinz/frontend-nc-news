@@ -305,3 +305,41 @@
 .article-page-vote-count span {
   font-size: 0.9rem;
 }
+
+.article-page-heart-error-msg {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #646cff;
+  /* border: 1px white solid; */
+  border-radius: 15px;
+}
+.article-page-heart-error-msg {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #242424dd;
+  border: 1px #646cff solid;
+  border-radius: 8px;
+}
+
+.article-page-heart-error-msg button {
+  margin: 5px 5px;
+  font-size: 0.7rem;
+  background-color: #646cff;
+  margin-bottom: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+.article-page-heart-error-msg p {
+  color: white;
+  font-size: 0.9rem;
+  margin: 10px 10px 5px 10px;
+}
+
+.article-page-heart-icon {
+  margin-left: 10px;
+}

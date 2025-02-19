@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getArticleById, getCommentsByArticleId } from "../utils/Api";
+import { getArticleById, updateArticleByArticleId } from "../utils/Api";
+import { closePopup } from "../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
 import {
   ThumbsUp,
@@ -11,21 +12,45 @@ import Comments from "./Comments";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
-  const [allComments, setAllComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [hasVoted, setHasVoted] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
+  const [error, setError] = useState(null);
   const { article_id } = useParams();
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
       setArticle(article);
-    });
-
-    getCommentsByArticleId(article_id).then((allComments) => {
-      setAllComments(allComments);
+      setVoteCount(article.votes);
       setIsLoading(false);
     });
-  }, []);
+  }, [hasVoted]);
+
+  function handleVoteClick() {
+    if (!hasVoted) {
+      setVoteCount((voteCount) => voteCount + 1);
+      setError(null);
+      updateArticleByArticleId(article.article_id, hasVoted)
+        .then((result) => {
+          setHasVoted(true);
+        })
+        .catch((err) => {
+          setVoteCount((voteCount) => voteCount - 1);
+          setError("Vote submission was not succesfull. Please try again!");
+        });
+    } else {
+      setVoteCount((voteCount) => voteCount - 1);
+      setError(null);
+      updateArticleByArticleId(article.article_id, hasVoted)
+        .then((result) => {
+          setHasVoted(false);
+        })
+        .catch((err) => {
+          setVoteCount((voteCount) => voteCount + 1);
+          setError("Vote update was not succesfull. Please try again!");
+        });
+    }
+  }
 
   if (isLoading) {
     return (
@@ -45,11 +70,21 @@ const Article = () => {
           <p className="article-page-author">{article.author}</p>
         </Link>
         <div className="like-dislike-button">
-          <p className="article-tile-heart-icon">
+          <p
+            className="article-page-heart-icon"
+            onClick={handleVoteClick}
+            style={{ color: hasVoted ? "#ff64e8" : "#646cff" }}
+          >
             <Heart size={25} />
           </p>
+          {error ? (
+            <div id="pop-up-error" className="article-page-heart-error-msg">
+              <p>{error}</p>
+              <button onClick={closePopup}>close</button>
+            </div>
+          ) : null}
           <p className="article-tile-heart-count">
-            <span>{article.votes}</span>
+            <span>{voteCount}</span>
           </p>
         </div>
       </div>
@@ -59,7 +94,7 @@ const Article = () => {
       </div>
       <div className="article-comments-container">
         <input placeholder="Comments"></input>
-        <Comments allComments={allComments} />
+        <Comments article_id={article_id} />
       </div>
     </div>
   );
