@@ -1,28 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useMatch } from "react-router-dom";
 import { getUserByUsername } from "../utils/Api";
+import { useLoggedUser } from "../contexts/AllContexts";
 
 const Header = () => {
-  const page = useLocation().pathname === "/login";
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoggedIn, setIsloggedIn] = useState(false);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const LoggedUser = searchParams.get("loggedState");
-    if (LoggedUser) {
-      setIsloggedIn(LoggedUser);
-      getUserByUsername(LoggedUser).then((returnedUser) => {
-        setUser(returnedUser);
-        console.log(isLoggedIn);
-      });
-    }
-  }, [isLoggedIn]);
+  const loginPage = useLocation().pathname === "/login";
+  const authorPage = useMatch("/author/:author_name") !== null;
+  const { loggedUser, setLoggedUser } = useLoggedUser();
 
   return (
     <div id="header">
       <div className="header-toolbar">
-        <Link to="/" className="header-logo-link">
+        <Link to="/home" className="header-logo-link">
           <div className="header-logo">
             <h1>
               <span>NC</span>
@@ -31,15 +20,19 @@ const Header = () => {
           </div>
         </Link>
 
-        {!page &&
-          (isLoggedIn ? (
+        {!loginPage &&
+          (loggedUser ? (
             <div className="header-info">
-              <p>
-                <span>Username:</span> {user.username}
-              </p>
-              <p>
-                <span>Name:</span> {user.name}
-              </p>
+              <img src={loggedUser.avatar_url}></img>
+              <div className="header-name-username">
+                <p>
+                  <span>Username:</span>
+                  <br /> {loggedUser.username}
+                </p>
+                <p>
+                  <span>Name:</span> <br /> {loggedUser.name}
+                </p>
+              </div>
             </div>
           ) : (
             <div className="header-login-button">
@@ -54,18 +47,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// {
-//   page && loggedUser ? (
-//     <div className="header-login-button">
-//       <Link to="/login">
-//         <button type="submit">LOGIN</button>
-//       </Link>
-//     </div>
-//   ) : (
-//     <div className="header-info">
-//       <p>Username</p>
-//       <p>Name</p>
-//     </div>
-//   );
-// }
