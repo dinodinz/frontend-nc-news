@@ -4,8 +4,8 @@ const ncNews = axios.create({
   baseURL: "https://northcoders-reddit.onrender.com/api/",
 });
 
-export const getArticles = () => {
-  return ncNews.get("/articles").then((response) => {
+export const getArticles = (topic) => {
+  return ncNews.get("/articles", { params: { topic } }).then((response) => {
     return response.data.allArticles;
   });
 };
@@ -48,4 +48,10 @@ export const addCommentByArticleId = (article_id, body, username) => {
 
 export const deleteCommentById = (comment_id) => {
   return ncNews.delete(`comments/${comment_id}`);
+};
+
+export const getTopics = () => {
+  return ncNews.get("/topics").then((response) => {
+    return response.data.allTopics;
+  });
 };

@@ -17,8 +17,6 @@ const Comments = ({ article }) => {
   const [deletedComment, setDeletedComment] = useState(false);
   const { loggedUser } = useLoggedUser();
 
-  console.log(deletedComment);
-
   useEffect(() => {
     setDeletedComment(false);
     getCommentsByArticleId(article.article_id).then((allComments) => {
@@ -40,7 +38,6 @@ const Comments = ({ article }) => {
         );
       }
     } else {
-      console.log("Please log in to post comments and like");
       setLogError("Please log in to post comments and like");
     }
   }

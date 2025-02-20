@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
 import AllArticles from "./AllArticles";
+import { ArticleListProvider } from "../contexts/AllContexts";
 
 const MainContent = () => {
   return (
     <div id="main-content-container">
-      <AllArticles />
+      <ArticleListProvider>
+        <AllArticles />
+      </ArticleListProvider>
     </div>
   );
 };

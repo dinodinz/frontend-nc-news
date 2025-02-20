@@ -129,7 +129,7 @@
   border: 1px #646cff solid;
 }
 
-/*========= ARTICLE TILES =========*/
+/*========= ALL ARTICLES / HOMEPAGE =========*/
 
 .article-tile,
 .article-tile img {
@@ -199,6 +199,25 @@
 
 .article-tile-thumbs-up-count {
   color: rgba(255, 255, 255, 0.87);
+}
+.all-articles-page-img-container {
+  position: relative;
+}
+
+.all-article-topic-button {
+  position: absolute;
+  left: 1%;
+  bottom: 1%;
+}
+
+.all-article-topic-button button {
+  background-color: #646cff;
+  margin-left: 8px;
+  margin-bottom: 13px;
+  font-size: 0.7rem;
+  color: black;
+  font-weight: bold;
+  border: none;
 }
 
 /*========= ARTICLE PAGE =========*/
@@ -460,4 +479,53 @@
 
 .delete-btn-comment-container a p {
   margin-top: 10px;
+}
+
+.article-page-img-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.article-page-img-container img {
+  height: auto;
+}
+
+.article-page-img-container button {
+  position: absolute;
+  bottom: 1%;
+  left: 1%;
+  background-color: #646cff;
+  margin-left: 8px;
+  margin-bottom: 13px;
+  font-size: 0.7rem;
+  color: black;
+  font-weight: bold;
+  border: none;
+}
+
+/*========= TOPIC PAGE =========*/
+.alltopic-container {
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  padding-left: 25px;
+  gap: 0px 3px;
+}
+.alltopic-container button {
+  display: flex;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  background-color: #646cff;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  color: black;
+}
+
+.alltopic-container p {
+  margin: 0px;
+  font-size: 0.9rem;
 }
