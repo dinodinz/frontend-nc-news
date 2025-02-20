@@ -25,3 +25,8 @@ export const getTimestamp = (tzformat) => {
 export const closePopup = () => {
   document.getElementById("pop-up-error").style.display = "none";
 };
+
+export const closeCommentPopup = (setLogError) => {
+  document.getElementById("comment-pop-up-error").style.display = "none";
+  setLogError(null);
+};
