@@ -442,3 +442,22 @@
   margin: 10px 10px 5px 10px;
   text-align: center;
 }
+
+.delete-btn-comment-container {
+  display: flex;
+  align-items: center;
+}
+
+.comment-delete-btn {
+  margin-left: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 3px 6px;
+  background-color: #ff646c;
+  color: black;
+  border: none;
+}
+
+.delete-btn-comment-container a p {
+  margin-top: 10px;
+}
