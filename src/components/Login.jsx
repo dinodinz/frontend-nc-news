@@ -1,20 +1,24 @@
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { getUserByUsername } from "../utils/Api";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useLoggedUser } from "../contexts/AllContexts";
 
-const Login = ({ username, setusername }) => {
+const Login = () => {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
+  const [username, setusername] = useState("");
+  const { setLoggedUser } = useLoggedUser();
   const navigate = useNavigate();
 
   function handleLogin(event) {
     event.preventDefault();
-    const usernameValue = event.target.value;
-    if (usernameValue.length !== 0) {
+    const usernameInput = event.target.value;
+
+    if (usernameInput.length !== 0) {
       getUserByUsername(event.target.value)
-        .then((response) => {
-          console.log("success", response);
+        .then((successUserLogin) => {
           setIsInvalidUsername(false);
-          navigate(`/?loggedState=${username}`);
+          setLoggedUser(successUserLogin);
+          navigate(`/home`);
         })
         .catch((err) => {
           console.log("err", err.response.data);
