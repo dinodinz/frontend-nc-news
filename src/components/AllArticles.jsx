@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/Api.js";
 import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
 
 const AllArticles = () => {
-  const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { articles, setArticles } = useArticleState();
+  const { setCurrentTopic } = useTopicState();
 
   useEffect(() => {
     getArticles().then((allArticles) => {
@@ -27,9 +29,23 @@ const AllArticles = () => {
       {articles.map((article) => {
         return (
           <div key={article.article_id} className="article-tile">
-            <Link to={`/article/${article.article_id}`}>
-              <img src={article.article_img_url}></img>
-            </Link>
+            <div className="all-articles-page-img-container">
+              <Link to={`/article/${article.article_id}`}>
+                <img src={article.article_img_url}></img>
+              </Link>
+              <Link
+                className="all-article-topic-button"
+                to={`/topic/${article.topic}`}
+              >
+                <button
+                  onClick={() => {
+                    setCurrentTopic(article.topic);
+                  }}
+                >
+                  {article.topic}
+                </button>
+              </Link>
+            </div>
             <div className="article-tile-info">
               <Link
                 className="article-tile-author-link"

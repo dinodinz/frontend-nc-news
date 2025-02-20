@@ -21,7 +21,6 @@ const Login = () => {
           navigate(`/home`);
         })
         .catch((err) => {
-          console.log("err", err.response.data);
           setIsInvalidUsername(true);
         });
     }

@@ -4,6 +4,7 @@ import { closePopup } from "../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
 import { Heart } from "@phosphor-icons/react";
 import Comments from "./Comments";
+import { useTopicState } from "../contexts/AllContexts";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -12,6 +13,7 @@ const Article = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [error, setError] = useState(null);
   const { article_id } = useParams();
+  const { setCurrentTopic } = useTopicState();
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
@@ -83,7 +85,18 @@ const Article = () => {
           </p>
         </div>
       </div>
-      <img src={article.article_img_url}></img>
+      <div className="article-page-img-container">
+        <img src={article.article_img_url}></img>
+        <Link to={`/topic/${article.topic}`}>
+          <button
+            onClick={() => {
+              setCurrentTopic(article.topic);
+            }}
+          >
+            {article.topic}
+          </button>
+        </Link>
+      </div>
       <div className="article-body">
         <p>{article.body}</p>
       </div>
