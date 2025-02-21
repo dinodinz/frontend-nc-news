@@ -4,8 +4,12 @@ const ncNews = axios.create({
   baseURL: "https://northcoders-reddit.onrender.com/api/",
 });
 
-export const getArticles = (topic) => {
-  return ncNews.get("/articles", { params: { topic } }).then((response) => {
+export const getArticles = (topic, sort_by, order) => {
+  const Params = !topic
+    ? { params: { sort_by, order } }
+    : { params: { topic } };
+
+  return ncNews.get("/articles", Params).then((response) => {
     return response.data.allArticles;
   });
 };

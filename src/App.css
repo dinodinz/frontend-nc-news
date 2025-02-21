@@ -220,6 +220,43 @@
   border: none;
 }
 
+.sort-by-container {
+  width: 100%;
+  text-align: left;
+  padding-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-by-container label {
+  margin-right: 10px;
+  margin-left: 15px;
+}
+
+#sort {
+  margin-right: 10px;
+}
+
+.triangle-order-btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 50px;
+}
+
+.triangle-order-btn-container p {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.triangle-icons {
+  color: #646cff;
+}
+
+.upside-down {
+  transform: rotate(180deg);
+}
 /*========= ARTICLE PAGE =========*/
 
 #article-page-container {

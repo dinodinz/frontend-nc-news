@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/Api.js";
-import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
+import { ThumbsUp, ChatTeardropText, Triangle } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
 
 const AllArticles = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [sortByValue, setSortByValue] = useState("created_at");
+  const [order, setOrder] = useState("DESC");
   const { articles, setArticles } = useArticleState();
   const { setCurrentTopic } = useTopicState();
 
   useEffect(() => {
-    getArticles().then((allArticles) => {
+    getArticles(null, sortByValue, order).then((allArticles) => {
       setArticles(allArticles);
       setIsLoading(false);
     });
-  }, []);
+  }, [sortByValue, order]);
 
   if (isLoading) {
     return (
@@ -26,6 +28,41 @@ const AllArticles = () => {
 
   return (
     <>
+      <div className="sort-by-container">
+        <div>
+          <label htmlFor="sort">Sort by:</label>
+          <select
+            id="sort"
+            value={sortByValue}
+            onChange={(event) => {
+              setSortByValue(event.target.value);
+            }}
+          >
+            <option value="created_at">Date</option>
+            <option value="comment_count">Comment</option>
+            <option value="votes">Vote</option>
+          </select>
+        </div>
+        <div className="triangle-order-btn-container">
+          <p>Order:</p>
+          <Triangle
+            className="triangle-icons"
+            id="ASC"
+            onClick={(event) => {
+              setOrder(event.target.id);
+            }}
+            size={18}
+          />
+          <Triangle
+            className="upside-down triangle-icons"
+            id="DESC"
+            onClick={(event) => {
+              setOrder(event.target.id);
+            }}
+            size={18}
+          />
+        </div>
+      </div>
       {articles.map((article) => {
         return (
           <div key={article.article_id} className="article-tile">
