@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import {
   AppProvider,
   ArticleListProvider,
+  ErrorPageProvider,
   TopicsProvider,
 } from "./contexts/AllContexts";
 import MainContent from "./components/MainContent";
@@ -11,24 +12,25 @@ import Login from "./components/Login";
 import Author from "./components/Author";
 import "./App.css";
 import Topics from "./components/Topics";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
     <TopicsProvider>
       <AppProvider>
         <div className="universal-container">
-          <Routes>
-            <Route path="*" element={<Header />}></Route>
-          </Routes>
+          <Header />
 
           <Routes>
             <Route path="/home" element={<MainContent />}></Route>
             <Route
               path="/article/:article_id"
               element={
-                <ArticleListProvider>
-                  <Article />
-                </ArticleListProvider>
+                <ErrorPageProvider>
+                  <ArticleListProvider>
+                    <Article />
+                  </ArticleListProvider>
+                </ErrorPageProvider>
               }
             ></Route>
             <Route path="/author/:author_name" element={<Author />}></Route>
@@ -36,9 +38,19 @@ function App() {
             <Route
               path="/topic/:topic"
               element={
-                <ArticleListProvider>
-                  <Topics />
-                </ArticleListProvider>
+                <ErrorPageProvider>
+                  <ArticleListProvider>
+                    <Topics />
+                  </ArticleListProvider>
+                </ErrorPageProvider>
+              }
+            ></Route>
+            <Route
+              path="*"
+              element={
+                <ErrorPageProvider>
+                  <ErrorPage />
+                </ErrorPageProvider>
               }
             ></Route>
           </Routes>
