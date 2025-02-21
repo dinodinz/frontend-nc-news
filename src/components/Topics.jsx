@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { getArticles, getTopics } from "../utils/Api.js";
-import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
+import { ThumbsUp, ChatTeardropText, ImageBroken } from "@phosphor-icons/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
+import {
+  useArticleState,
+  useErrorPageState,
+  useTopicState,
+} from "../contexts/AllContexts.jsx";
 
 const Topics = () => {
   const navigate = useNavigate();
@@ -11,19 +15,30 @@ const Topics = () => {
   const { articles, setArticles } = useArticleState();
   const [allTopic, setAllTopic] = useState([]);
   const { currentTopic, setCurrentTopic } = useTopicState();
+  const { errorPage, setErrorPage } = useErrorPageState();
 
   useEffect(() => {
     if (currentTopic === null) {
       setCurrentTopic(topic);
     } else {
-      getArticles(currentTopic).then((topicRelatedArticles) => {
-        setArticles(topicRelatedArticles);
-      });
+      getArticles(currentTopic)
+        .then((topicRelatedArticles) => {
+          setArticles(topicRelatedArticles);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setErrorPage([err.response.status, err.response.data.error]);
+          setIsLoading(false);
+        });
 
-      getTopics(currentTopic).then((allTopicResponse) => {
-        setAllTopic(allTopicResponse);
-        setIsLoading(false);
-      });
+      getTopics(currentTopic)
+        .then((allTopicResponse) => {
+          setAllTopic(allTopicResponse);
+        })
+        .catch((err) => {
+          setErrorPage([err.response.status, err.response.data.error]);
+          setIsLoading(false);
+        });
     }
   }, [currentTopic]);
 
@@ -31,6 +46,16 @@ const Topics = () => {
     return (
       <div className="loading-msg-container">
         <p className="loading-msg">Loading...</p>
+      </div>
+    );
+  }
+
+  if (errorPage) {
+    return (
+      <div className="loading-msg-container">
+        <ImageBroken size={130} />
+        <p className="loading-msg">{"Error:" + errorPage[0]}</p>
+        <p className="loading-msg">{errorPage[1]}</p>
       </div>
     );
   }

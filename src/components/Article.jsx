@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { getArticleById, updateArticleByArticleId } from "../utils/Api";
 import { closePopup } from "../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
-import { Heart } from "@phosphor-icons/react";
+import { Heart, ImageBroken } from "@phosphor-icons/react";
 import Comments from "./Comments";
-import { useTopicState } from "../contexts/AllContexts";
+import { useErrorPageState, useTopicState } from "../contexts/AllContexts";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -14,13 +14,19 @@ const Article = () => {
   const [error, setError] = useState(null);
   const { article_id } = useParams();
   const { setCurrentTopic } = useTopicState();
+  const { errorPage, setErrorPage } = useErrorPageState();
 
   useEffect(() => {
-    getArticleById(article_id).then((article) => {
-      setArticle(article);
-      setVoteCount(article.votes);
-      setIsLoading(false);
-    });
+    getArticleById(article_id)
+      .then((article) => {
+        setArticle(article);
+        setVoteCount(article.votes);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setErrorPage([err.response.status, err.response.data.error]);
+        setIsLoading(false);
+      });
   }, [hasVoted]);
 
   function handleVoteClick() {
@@ -53,6 +59,16 @@ const Article = () => {
     return (
       <div className="loading-msg-container">
         <p className="loading-msg">Loading...</p>
+      </div>
+    );
+  }
+
+  if (errorPage) {
+    return (
+      <div className="loading-msg-container">
+        <ImageBroken size={130} />
+        <p className="loading-msg">{"Error:" + errorPage[0]}</p>
+        <p className="loading-msg">{errorPage[1]}</p>
       </div>
     );
   }

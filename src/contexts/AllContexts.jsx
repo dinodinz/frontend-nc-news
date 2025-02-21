@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 const LoggedUserContext = createContext();
 const ArticleListContext = createContext();
 const TopicsContext = createContext();
+const ErrorPageContext = createContext();
 
 export function AppProvider({ children }) {
   const [loggedUser, setLoggedUser] = useState(null);
@@ -43,4 +44,18 @@ export function TopicsProvider({ children }) {
 
 export function useTopicState() {
   return useContext(TopicsContext);
+}
+
+export function ErrorPageProvider({ children }) {
+  const [errorPage, setErrorPage] = useState(null);
+
+  return (
+    <ErrorPageContext.Provider value={{ errorPage, setErrorPage }}>
+      {children}
+    </ErrorPageContext.Provider>
+  );
+}
+
+export function useErrorPageState() {
+  return useContext(ErrorPageContext);
 }
