@@ -18,7 +18,7 @@ const Login = () => {
         .then((successUserLogin) => {
           setIsInvalidUsername(false);
           setLoggedUser(successUserLogin);
-          navigate(`/home`);
+          navigate(`/`);
         })
         .catch((err) => {
           setIsInvalidUsername(true);
