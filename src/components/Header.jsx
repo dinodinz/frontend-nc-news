@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import { getUserByUsername } from "../utils/Api";
 import { useLoggedUser } from "../contexts/AllContexts";
+import { getTopics } from "../utils/Api";
 
 const Header = () => {
   const loginPage = useLocation().pathname === "/login";
@@ -16,9 +17,13 @@ const Header = () => {
             <h1>
               <span>NC</span>
             </h1>
-            <p>NEWS</p>
+            <p>news</p>
           </div>
         </Link>
+
+        <div className="header-middle-nav">
+          <div className="topics-nav"></div>
+        </div>
 
         {!loginPage &&
           (loggedUser ? (
@@ -35,10 +40,17 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="header-login-button">
-              <Link to="/login">
-                <button type="submit">LOGIN</button>
-              </Link>
+            <div className="right-header-container">
+              <div className="header-login-button">
+                <Link to="/login">
+                  <button type="submit">Login</button>
+                </Link>
+              </div>
+              <div className="header-create-button">
+                <Link to="/create">
+                  <button type="submit">Create</button>
+                </Link>
+              </div>
             </div>
           ))}
       </div>
