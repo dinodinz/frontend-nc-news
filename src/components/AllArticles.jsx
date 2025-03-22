@@ -6,17 +6,18 @@ import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
 
 const AllArticles = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [sortByValue, setSortByValue] = useState("created_at");
+  const [sortByValue, setSortByValue] = useState("");
   const [order, setOrder] = useState("DESC");
   const { articles, setArticles } = useArticleState();
   const { setCurrentTopic } = useTopicState();
+  const [defaultSort, setDefaultSort] = useState("created_at");
 
   useEffect(() => {
-    getArticles(null, sortByValue, order).then((allArticles) => {
+    getArticles(null, defaultSort, order).then((allArticles) => {
       setArticles(allArticles);
       setIsLoading(false);
     });
-  }, [sortByValue, order]);
+  }, [defaultSort, order]);
 
   if (isLoading) {
     return (
@@ -30,14 +31,17 @@ const AllArticles = () => {
     <>
       <div className="sort-by-container">
         <div>
-          <label htmlFor="sort">Sort by:</label>
           <select
             id="sort"
             value={sortByValue}
             onChange={(event) => {
               setSortByValue(event.target.value);
+              setDefaultSort(event.target.value);
             }}
           >
+            <option value="" disabled>
+              Sort by
+            </option>
             <option value="created_at">Date</option>
             <option value="comment_count">Comment</option>
             <option value="votes">Vote</option>
@@ -63,57 +67,59 @@ const AllArticles = () => {
           />
         </div>
       </div>
-      {articles.map((article) => {
-        return (
-          <div key={article.article_id} className="article-tile">
-            <div className="all-articles-page-img-container">
-              <Link to={`/article/${article.article_id}`}>
-                <img src={article.article_img_url}></img>
-              </Link>
-              <Link
-                className="all-article-topic-button"
-                to={`/topic/${article.topic}`}
-              >
-                <button
-                  onClick={() => {
-                    setCurrentTopic(article.topic);
-                  }}
-                >
-                  {article.topic}
-                </button>
-              </Link>
-            </div>
-            <div className="article-tile-info">
-              <Link
-                className="article-tile-author-link"
-                to={`/author/${article.author}`}
-              >
-                <p className="article-tile-author">{article.author}</p>
-              </Link>
-              <div className="article-tile-like-dislike-button-container">
-                <Link
-                  className="article-tile-like-dislike-button"
-                  to={`/article/${article.article_id}`}
-                >
-                  <p className="article-tile-thumbs-up-icon">
-                    <ThumbsUp size={25} />
-                  </p>
-                  <p className="article-tile-thumbs-up-count">
-                    <span>{article.votes}</span>
-                  </p>
-                  <p className="article-tile-comment-icon">
-                    <ChatTeardropText size={25} />
-                  </p>
+      <div className="all-article-container">
+        {articles.map((article) => {
+          return (
+            <div key={article.article_id} className="article-tile">
+              <div className="all-articles-page-img-container">
+                <Link to={`/article/${article.article_id}`}>
+                  <img src={article.article_img_url}></img>
                 </Link>
-                <p className="article-tile-comment-count">
-                  {article.comment_count}
-                </p>
+                <Link
+                  className="all-article-topic-button"
+                  to={`/topic/${article.topic}`}
+                >
+                  <button
+                    onClick={() => {
+                      setCurrentTopic(article.topic);
+                    }}
+                  >
+                    {article.topic}
+                  </button>
+                </Link>
               </div>
+              <div className="article-tile-info">
+                <Link
+                  className="article-tile-author-link"
+                  to={`/author/${article.author}`}
+                >
+                  <p className="article-tile-author">{article.author}</p>
+                </Link>
+                <div className="article-tile-like-dislike-button-container">
+                  <Link
+                    className="article-tile-like-dislike-button"
+                    to={`/article/${article.article_id}`}
+                  >
+                    <p className="article-tile-thumbs-up-icon">
+                      <ThumbsUp size={25} />
+                    </p>
+                    <p className="article-tile-thumbs-up-count">
+                      <span>{article.votes}</span>
+                    </p>
+                    <p className="article-tile-comment-icon">
+                      <ChatTeardropText size={25} />
+                    </p>
+                  </Link>
+                  <p className="article-tile-comment-count">
+                    {article.comment_count}
+                  </p>
+                </div>
+              </div>
+              <p className="article-tile-title">{article.title} </p>
             </div>
-            <p className="article-tile-title">{article.title} </p>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </>
   );
 };
