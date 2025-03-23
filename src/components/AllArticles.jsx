@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/Api.js";
-import { ThumbsUp, ChatTeardropText, Triangle } from "@phosphor-icons/react";
+import {
+  ThumbsUp,
+  ChatTeardropText,
+  Triangle,
+  GithubLogo,
+  LinkedinLogo,
+} from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const AllArticles = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +29,12 @@ const AllArticles = () => {
   if (isLoading) {
     return (
       <div className="loading-msg-container">
+        <DotLottieReact
+          src="https://lottie.host/64874a31-dac6-4247-8bf9-ff1be54f880d/jzje4DTIL8.lottie"
+          loop
+          autoplay
+          className="car-animation"
+        />
         <p className="loading-msg">Loading...</p>
       </div>
     );
@@ -119,6 +132,19 @@ const AllArticles = () => {
             </div>
           );
         })}
+      </div>
+      <div className="footer-website-credits">
+        <p className="footer-year-credits">© 2025 dinodin</p>
+        <p className="footer-github-logo">
+          <a href="https://github.com/dinodinz" target="__blank">
+            <GithubLogo size={23} />
+          </a>
+        </p>
+        <p className="footer-linkedin-logo">
+          <a href="https://www.linkedin.com/in/dinodin/" target="__blank">
+            <LinkedinLogo size={23} />
+          </a>
+        </p>
       </div>
     </>
   );
