@@ -8,6 +8,14 @@ const Header = () => {
   const loginPage = useLocation().pathname === "/login";
   const authorPage = useMatch("/author/:author_name") !== null;
   const { loggedUser, setLoggedUser } = useLoggedUser();
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    getTopics().then((allTopics) => {
+      console.log("ALLTOPICS", allTopics);
+      setTopics(allTopics);
+    });
+  }, []);
 
   return (
     <div id="header">
@@ -22,7 +30,14 @@ const Header = () => {
         </Link>
 
         <div className="header-middle-nav">
-          <div className="topics-nav"></div>
+          <Link to="/">
+            <div className="header-nav-all-articles">
+              <p>All articles</p>
+            </div>
+          </Link>
+          {topics.map((topic) => {
+            return <p key={topic.slug}>{topic.slug}</p>;
+          })}
         </div>
 
         {!loginPage &&
