@@ -54,15 +54,32 @@ const Comments = ({ article }) => {
   return (
     <>
       <div className="comment-input-btn-container">
-        <input
-          placeholder="Comments"
-          onChange={(event) => {
-            setComment(event.target.value);
-          }}
-        ></input>
-        <button type="submit" value={comment} onClick={handleCommentSubmit}>
-          Send
-        </button>
+        {logError ? (
+          <div id="comment-pop-up-error">
+            <p>{logError}</p>
+            <button
+              onClick={() => {
+                closeCommentPopup(setLogError);
+              }}
+            >
+              close
+            </button>
+          </div>
+        ) : null}
+        <div className="comment-box-btn-container">
+          <textarea
+            className="comment-input-box"
+            placeholder="Write a comment..."
+            onChange={(event) => {
+              setComment(event.target.value);
+            }}
+          ></textarea>
+          <div className="comment-btn-container">
+            <button type="submit" value={comment} onClick={handleCommentSubmit}>
+              Post a Comment
+            </button>
+          </div>
+        </div>
       </div>
       <ul className="comment-list">
         {allComments.map((comment) => {
@@ -87,7 +104,7 @@ const Comments = ({ article }) => {
               <li>{comment.body}</li>
               <div className="comment-author-timestamp">
                 <p>{getTimestamp(comment.created_at)}</p>
-
+                {/* 
                 {logError ? (
                   <div id="comment-pop-up-error">
                     <p>{logError}</p>
@@ -99,7 +116,7 @@ const Comments = ({ article }) => {
                       close
                     </button>
                   </div>
-                ) : null}
+                ) : null} */}
 
                 <div className="comment-like-dislike-button">
                   <p className="">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/Api.js";
+import FooterCredits from "./FooterCredits.jsx";
 import {
   ThumbsUp,
   ChatTeardropText,
@@ -25,6 +26,32 @@ const AllArticles = () => {
       setIsLoading(false);
     });
   }, [defaultSort, order]);
+
+  // function handleVoteClick() {
+  //   if (!hasVoted) {
+  //     setVoteCount((voteCount) => voteCount + 1);
+  //     setError(null);
+  //     updateArticleByArticleId(article.article_id, hasVoted)
+  //       .then((result) => {
+  //         setHasVoted(true);
+  //       })
+  //       .catch((err) => {
+  //         setVoteCount((voteCount) => voteCount - 1);
+  //         setError("Vote submission was not succesfull. Please try again!");
+  //       });
+  //   } else {
+  //     setVoteCount((voteCount) => voteCount - 1);
+  //     setError(null);
+  //     updateArticleByArticleId(article.article_id, hasVoted)
+  //       .then((result) => {
+  //         setHasVoted(false);
+  //       })
+  //       .catch((err) => {
+  //         setVoteCount((voteCount) => voteCount + 1);
+  //         setError("Vote update was not succesfull. Please try again!");
+  //       });
+  //   }
+  // }
 
   if (isLoading) {
     return (
@@ -109,16 +136,21 @@ const AllArticles = () => {
                   <p className="article-tile-author">{article.author}</p>
                 </Link>
                 <div className="article-tile-like-dislike-button-container">
+                  <p
+                    className="article-tile-thumbs-up-icon"
+                    onClick={() => {
+                      handleVoteClick(article.article_id);
+                    }}
+                  >
+                    <ThumbsUp size={25} />
+                  </p>
+                  <p className="article-tile-thumbs-up-count">
+                    <span>{article.votes}</span>
+                  </p>
                   <Link
                     className="article-tile-like-dislike-button"
                     to={`/article/${article.article_id}`}
                   >
-                    <p className="article-tile-thumbs-up-icon">
-                      <ThumbsUp size={25} />
-                    </p>
-                    <p className="article-tile-thumbs-up-count">
-                      <span>{article.votes}</span>
-                    </p>
                     <p className="article-tile-comment-icon">
                       <ChatTeardropText size={25} />
                     </p>
@@ -133,19 +165,7 @@ const AllArticles = () => {
           );
         })}
       </div>
-      <div className="footer-website-credits">
-        <p className="footer-year-credits">© 2025 dinodin</p>
-        <p className="footer-github-logo">
-          <a href="https://github.com/dinodinz" target="__blank">
-            <GithubLogo size={23} />
-          </a>
-        </p>
-        <p className="footer-linkedin-logo">
-          <a href="https://www.linkedin.com/in/dinodin/" target="__blank">
-            <LinkedinLogo size={23} />
-          </a>
-        </p>
-      </div>
+      <FooterCredits />
     </>
   );
 };

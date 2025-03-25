@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useLoggedUser } from "../contexts/AllContexts";
 import FooterCredits from "./FooterCredits.jsx";
 
-const Login = () => {
+const Create = () => {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
   const [username, setusername] = useState("");
   const { setLoggedUser } = useLoggedUser();
@@ -31,6 +31,15 @@ const Login = () => {
     <div className="login-main-content">
       <input
         type="text"
+        placeholder="Enter Full Name"
+        className="login-input-field"
+        onChange={(event) => {
+          setusername(event.target.value);
+        }}
+      ></input>
+
+      <input
+        type="text"
         placeholder="Enter Username"
         className="login-input-field"
         onChange={(event) => {
@@ -46,12 +55,12 @@ const Login = () => {
         className="login-button"
         onClick={handleLogin}
       >
-        Login
+        Create account
       </button>
       <div className="sign-up-offer">
-        <p className="dont-have-account">Don’t have an account yet? </p>
-        <Link to="/create">
-          <p className="sign-up-now">Sign up now!</p>
+        <p className="dont-have-account">Already have an account? </p>
+        <Link to="/login">
+          <p className="sign-up-now">Log in here!</p>
         </Link>
       </div>
       <FooterCredits />
@@ -59,4 +68,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Create;

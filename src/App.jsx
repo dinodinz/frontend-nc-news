@@ -9,6 +9,7 @@ import {
 import MainContent from "./components/MainContent";
 import Article from "./components/Article";
 import Login from "./components/Login";
+import Create from "./components/Create";
 import Author from "./components/Author";
 import "./App.css";
 import Topics from "./components/Topics";
@@ -35,6 +36,7 @@ function App() {
             ></Route>
             <Route path="/author/:author_name" element={<Author />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/create" element={<Create />}></Route>
             <Route
               path="/topic/:topic"
               element={
