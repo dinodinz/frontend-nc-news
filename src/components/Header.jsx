@@ -6,13 +6,13 @@ import { getTopics } from "../utils/Api";
 
 const Header = () => {
   const loginPage = useLocation().pathname === "/login";
+  const createPage = useLocation().pathname === "/create";
   const authorPage = useMatch("/author/:author_name") !== null;
   const { loggedUser, setLoggedUser } = useLoggedUser();
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
     getTopics().then((allTopics) => {
-      console.log("ALLTOPICS", allTopics);
       setTopics(allTopics);
     });
   }, []);
@@ -41,6 +41,7 @@ const Header = () => {
         </div>
 
         {!loginPage &&
+          !createPage &&
           (loggedUser ? (
             <div className="header-info">
               <img src={loggedUser.avatar_url}></img>

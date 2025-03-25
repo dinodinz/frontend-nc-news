@@ -5,6 +5,8 @@ import { useParams, Link } from "react-router-dom";
 import { Heart, ImageBroken } from "@phosphor-icons/react";
 import Comments from "./Comments";
 import { useErrorPageState, useTopicState } from "../contexts/AllContexts";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import FooterCredits from "./FooterCredits";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -58,6 +60,12 @@ const Article = () => {
   if (isLoading) {
     return (
       <div className="loading-msg-container">
+        <DotLottieReact
+          src="https://lottie.host/64874a31-dac6-4247-8bf9-ff1be54f880d/jzje4DTIL8.lottie"
+          loop
+          autoplay
+          className="car-animation"
+        />
         <p className="loading-msg">Loading...</p>
       </div>
     );
@@ -75,13 +83,9 @@ const Article = () => {
 
   return (
     <div id="article-page-container">
-      <div className="article-page-buttons">
-        <Link
-          className="article-page-author-link"
-          to={`/author/${article.author}`}
-        >
-          <p className="article-page-author">{article.author}</p>
-        </Link>
+      <div className="article-page-img-container">
+        <img src={article.article_img_url}></img>
+
         <div className="like-dislike-button">
           <p
             className="article-page-heart-icon"
@@ -100,27 +104,60 @@ const Article = () => {
             <span>{voteCount}</span>
           </p>
         </div>
-      </div>
-      <div className="article-page-img-container">
-        <img src={article.article_img_url}></img>
+
+        <Link
+          className="article-page-author-link"
+          to={`/author/${article.author}`}
+        >
+          <p className="article-page-author">{article.author}</p>
+        </Link>
         <Link to={`/topic/${article.topic}`}>
           <button
             onClick={() => {
               setCurrentTopic(article.topic);
             }}
           >
-            {article.topic}
+            {article.topic.charAt(0).toUpperCase() + article.topic.slice(1)}
           </button>
         </Link>
       </div>
+
       <div className="article-body">
         <p>{article.body}</p>
       </div>
       <div className="article-comments-container">
         <Comments article={article} />
       </div>
+      <FooterCredits />
     </div>
   );
 };
 
 export default Article;
+
+// <div className="article-page-buttons">
+//       <Link
+//         className="article-page-author-link"
+//         to={`/author/${article.author}`}
+//       >
+//         <p className="article-page-author">{article.author}</p>
+//       </Link>
+//       <div className="like-dislike-button">
+//         <p
+//           className="article-page-heart-icon"
+//           onClick={handleVoteClick}
+//           style={{ color: hasVoted ? "#ff64e8" : "#646cff" }}
+//         >
+//           <Heart size={25} />
+//         </p>
+//         {error ? (
+//           <div id="pop-up-error" className="article-page-heart-error-msg">
+//             <p>{error}</p>
+//             <button onClick={closePopup}>close</button>
+//           </div>
+//         ) : null}
+//         <p className="article-tile-heart-count">
+//           <span>{voteCount}</span>
+//         </p>
+//       </div>
+//     </div>
