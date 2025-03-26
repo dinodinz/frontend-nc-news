@@ -1,8 +1,46 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## NC News WebApp
 
-Currently, two official plugins are available:
+A webapp similar to reddit where you can post, create and upvote articles. This is using the NC news Backend server as well.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Minimum required versions:
+
+Node.js = v23.3.0
+
+## 🛠 Tech Stack
+- **Node.js** (v23.3.0)
+- **Axios** (v^1.7.9)
+- **Lottie** (for loader animations)
+- **Phospor Icons** (for icon components)
+- **Vite**
+
+## Summary:
+
+This is something similar to Reddit where people can share and post articles and also comment and vote on them. Built by React components.
+
+## Dependencies
+
+You will need to install the minimum dependency versions shown on the package.json file to avoid any issues when running the app
+
+If you have installed recent versions and are having issues, then installing the exact versions would be the best option.
+
+To do this you need to use "npm ci" instead of "npm i" as this will install the exact versions on the package.json file.
+
+## Setup on your local machine
+
+1.) Go here https://github.com/dinodinz/frontend-nc-news
+
+2.) Grab the HTTPS URL by clicking the green button "<> Code"
+
+3.) Go to your machine terminal and run "git clone CODE_URL_HERE"
+
+4.) Open the directory inside your IDE
+
+5.) Run "npm ci" on your terminal to install the exact versions of all dependencies on the package.json file
+
+6.) Run "npm run dev" to buld a server using Vite.
+
+7.) Preview it using the localhost server.
+
+Alternatively, you can use the live link here: https://ncnewstagram.netlify.app/
+
