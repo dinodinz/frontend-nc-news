@@ -20,9 +20,9 @@ This is something similar to Reddit where people can share and post articles and
 
 ## Dependencies
 
-You will need to install the minimum dependency versions shown on the package.json file to avoid any issues when running the app
+You might need to install the minimum dependency versions shown on the package.json file to avoid any issues when running the app
 
-If you have installed recent versions and are having issues, then installing the exact versions would be the best option.
+If you have installed recent updated versions and are having issues, then installing the exact versions would be the best option.
 
 To do this you need to use "npm ci" instead of "npm i" as this will install the exact versions on the package.json file.
 
