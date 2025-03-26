@@ -1,7 +1,7 @@
 
 ## NC News WebApp
 
-A webapp similar to reddit where you can post, create and upvote articles. This is using the NC news Backend server as well.
+A frontend webapp similar to reddit where you can post, create and upvote articles. This is using the NC news Backend server as well.
 
 ## Minimum required versions:
 
