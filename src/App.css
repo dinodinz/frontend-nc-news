@@ -335,9 +335,10 @@
 .sort-by-container {
   width: 100%;
   text-align: left;
-  padding-bottom: 8px;
+  /* padding-bottom: 8px; */
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .sort-by-container label {
@@ -351,10 +352,13 @@
   font-size: 1.3rem;
   margin-left: 60px;
   border: 1.5px #fff solid;
-  padding: 7px 8px 7px 8px;
-  width: 8rem;
+  padding: 8px 8px 8px 0;
+  width: 8.9rem;
   text-align: center;
   background-color: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .triangle-order-btn-container {

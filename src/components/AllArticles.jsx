@@ -70,7 +70,10 @@ const AllArticles = () => {
   return (
     <>
       <div className="sort-by-container">
-        <div>
+        <div
+          className="sort-by-triangle-container"
+          style={{ position: "relative", display: "inline-block" }}
+        >
           <select
             id="sort"
             value={sortByValue}
@@ -86,6 +89,19 @@ const AllArticles = () => {
             <option value="comment_count">Comment</option>
             <option value="votes">Vote</option>
           </select>
+          <Triangle
+            className="upside-down triangle-icons"
+            id="DESC"
+            size={18}
+            style={{
+              position: "absolute",
+              right: "20px",
+              top: "30%",
+              transform: "translateY(-50%)",
+              pointerEvents: "none",
+              transform: "rotate(180deg)",
+            }}
+          />
         </div>
         <div className="triangle-order-btn-container">
           <p>Order:</p>
