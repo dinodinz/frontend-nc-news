@@ -12,7 +12,7 @@ Node.js = v23.3.0
 - **Axios** (v^1.7.9)
 - **Lottie** (for loader animations)
 - **Phospor Icons** (for icon components)
-- **Vite**
+- **Vite** (For easily previewing your react work)
 
 ## Summary:
 
