@@ -97,7 +97,6 @@ const AllArticles = () => {
               position: "absolute",
               right: "20px",
               top: "30%",
-              transform: "translateY(-50%)",
               pointerEvents: "none",
               transform: "rotate(180deg)",
             }}
