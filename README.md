@@ -38,9 +38,12 @@ To do this you need to use "npm ci" instead of "npm i" as this will install the 
 
 5.) Run "npm ci" on your terminal to install the exact versions of all dependencies on the package.json file
 
-6.) Run "npm run dev" to buld a server using Vite.
+6.) Run "npm run dev" to build a server using Vite.
 
-7.) Preview it using the localhost server.
+7.) Preview the project by clicking the localhost server provided.
 
 Alternatively, you can use the live link here: https://ncnewstagram.netlify.app/
+
+## Important:
+ It may take a few seconds for this project to fetch data on initial render as API endpoints will need to boot up after long periods of inactivity.
 
