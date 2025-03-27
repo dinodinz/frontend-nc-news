@@ -13,6 +13,7 @@ Node.js = v23.3.0
 - **Lottie** (for loader animations)
 - **Phospor Icons** (for icon components)
 - **Vite** (For easily previewing your react work)
+- **ES6 Javascript** (syntax used for the whole project)
 
 ## Summary:
 
