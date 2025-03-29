@@ -36,6 +36,8 @@ const Comments = ({ article }) => {
             setPostedComment(comment);
           }
         );
+      } else {
+        setLogError("Please provide your comment");
       }
     } else {
       setLogError("Please log in to post comments and like");

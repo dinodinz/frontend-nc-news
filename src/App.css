@@ -702,6 +702,35 @@
   color: #ff646c;
 }
 
+.created-account-notification {
+  margin-top: -10px;
+  font-size: 1rem;
+  color: #92bb16;
+  font-weight: 600;
+}
+
+.valid-username-validation {
+  margin-top: -10px;
+  font-size: 0.9rem;
+  color: #92bb16;
+}
+
+.has-created-container {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 20%;
+  padding: 10px;
+  transform: translate(-50%, -50%);
+  border: 2px #000 solid;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-main-content button,
 .create-main-content button {
   background-color: #92bb16;
