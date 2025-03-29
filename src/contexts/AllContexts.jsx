@@ -3,6 +3,7 @@ const LoggedUserContext = createContext();
 const ArticleListContext = createContext();
 const TopicsContext = createContext();
 const ErrorPageContext = createContext();
+const HasCreatedContext = createContext();
 
 export function AppProvider({ children }) {
   const [loggedUser, setLoggedUser] = useState(null);
@@ -58,4 +59,18 @@ export function ErrorPageProvider({ children }) {
 
 export function useErrorPageState() {
   return useContext(ErrorPageContext);
+}
+
+export function HasCreatedProvider({ children }) {
+  const [hasCreated, setHasCreated] = useState(false);
+
+  return (
+    <HasCreatedContext.Provider value={{ hasCreated, setHasCreated }}>
+      {children}
+    </HasCreatedContext.Provider>
+  );
+}
+
+export function useHasCreatedState() {
+  return useContext(HasCreatedContext);
 }

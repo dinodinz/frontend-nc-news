@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getUserByUsername } from "../utils/Api";
 import { useNavigate, Link } from "react-router-dom";
-import { useLoggedUser } from "../contexts/AllContexts";
+import { useLoggedUser, useHasCreatedState } from "../contexts/AllContexts";
 import FooterCredits from "./FooterCredits.jsx";
 
 const Login = () => {
@@ -9,6 +9,7 @@ const Login = () => {
   const [username, setusername] = useState("");
   const { setLoggedUser } = useLoggedUser();
   const navigate = useNavigate();
+  const { hasCreated, setHasCreated } = useHasCreatedState();
 
   function handleLogin(event) {
     event.preventDefault();
@@ -29,6 +30,18 @@ const Login = () => {
 
   return (
     <div className="login-main-content">
+      {/* {isInvalidUsername && username.length < 3 ? (
+        <p className="invalid-username-error">
+          Please enter a username with a minimum of 3 characters!
+        </p>
+      ) : null} */}
+
+      {hasCreated ? (
+        <p className="created-account-notification">
+          Your account has been created! Please login
+        </p>
+      ) : null}
+
       <input
         type="text"
         placeholder="Enter Username"

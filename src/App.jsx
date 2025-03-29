@@ -5,6 +5,7 @@ import {
   ArticleListProvider,
   ErrorPageProvider,
   TopicsProvider,
+  HasCreatedProvider,
 } from "./contexts/AllContexts";
 import MainContent from "./components/MainContent";
 import Article from "./components/Article";
@@ -35,8 +36,24 @@ function App() {
               }
             ></Route>
             <Route path="/author/:author_name" element={<Author />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/create" element={<Create />}></Route>
+
+            <Route
+              path="/login"
+              element={
+                <HasCreatedProvider>
+                  <Login />
+                </HasCreatedProvider>
+              }
+            ></Route>
+            <Route
+              path="/create"
+              element={
+                <HasCreatedProvider>
+                  <Create />
+                </HasCreatedProvider>
+              }
+            ></Route>
+
             <Route
               path="/topic/:topic"
               element={

@@ -59,3 +59,15 @@ export const getTopics = () => {
     return response.data.allTopics;
   });
 };
+
+export const getUsers = () => {
+  return ncNews.get("/users").then((response) => {
+    return response.data.allUsers;
+  });
+};
+
+export const addUser = (reqBody) => {
+  return ncNews.post("/users", reqBody).then((response) => {
+    return response.data.allUsers;
+  });
+};
