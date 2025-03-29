@@ -158,6 +158,12 @@
   background-color: #fff;
   padding: 10px 5px 15px 5px;
   border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-tile:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .article-tile img {
@@ -339,6 +345,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .sort-by-container label {
@@ -359,6 +366,7 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  cursor: pointer;
 }
 
 .triangle-order-btn-container {
@@ -643,7 +651,8 @@
 }
 
 /*========= LOGIN PAGE =========*/
-.login-main-content {
+.login-main-content,
+.create-main-content {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -658,11 +667,13 @@
   justify-content: center;
 }
 
-.login-main-content h1 {
+.login-main-content h1,
+.create-main-content h1 {
   font-size: 1.3rem;
 }
 
-.login-main-content input {
+.login-main-content input,
+.create-input-field {
   width: 50%;
   height: 45px;
   margin-bottom: 20px;
@@ -673,6 +684,10 @@
   color: #000;
   font-size: 1.2rem;
   text-align: center;
+}
+
+.file-input-field {
+  margin-left: 20px;
 }
 
 .login-input-field::placeholder {
@@ -687,7 +702,8 @@
   color: #ff646c;
 }
 
-.login-main-content button {
+.login-main-content button,
+.create-main-content button {
   background-color: #92bb16;
   color: black;
   font-weight: bold;
