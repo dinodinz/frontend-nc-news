@@ -26,7 +26,6 @@ export const closePopup = () => {
   document.getElementById("pop-up-error").style.display = "none";
 };
 
-export const closeCommentPopup = (setLogError) => {
+export const closeCommentPopup = () => {
   document.getElementById("comment-pop-up-error").style.display = "none";
-  setLogError(null);
 };
