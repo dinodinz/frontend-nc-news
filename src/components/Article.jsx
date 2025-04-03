@@ -4,7 +4,11 @@ import { closePopup } from "../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
 import { Heart, ImageBroken } from "@phosphor-icons/react";
 import Comments from "./Comments";
-import { useErrorPageState, useTopicState } from "../contexts/AllContexts";
+import {
+  useErrorPageState,
+  useTopicState,
+  useLoggedUser,
+} from "../contexts/AllContexts";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import FooterCredits from "./FooterCredits";
 
@@ -17,6 +21,7 @@ const Article = () => {
   const { article_id } = useParams();
   const { setCurrentTopic } = useTopicState();
   const { errorPage, setErrorPage } = useErrorPageState();
+  const { loggedUser } = useLoggedUser();
 
   useEffect(() => {
     getArticleById(article_id)
@@ -32,28 +37,32 @@ const Article = () => {
   }, [hasVoted]);
 
   function handleVoteClick() {
-    if (!hasVoted) {
-      setVoteCount((voteCount) => voteCount + 1);
-      setError(null);
-      updateArticleByArticleId(article.article_id, hasVoted)
-        .then((result) => {
-          setHasVoted(true);
-        })
-        .catch((err) => {
-          setVoteCount((voteCount) => voteCount - 1);
-          setError("Vote submission was not succesfull. Please try again!");
-        });
+    if (loggedUser) {
+      if (!hasVoted) {
+        setVoteCount((voteCount) => voteCount + 1);
+        setError(null);
+        updateArticleByArticleId(article.article_id, hasVoted)
+          .then((result) => {
+            setHasVoted(true);
+          })
+          .catch((err) => {
+            setVoteCount((voteCount) => voteCount - 1);
+            setError("Vote submission was not succesfull. Please try again!");
+          });
+      } else {
+        setVoteCount((voteCount) => voteCount - 1);
+        setError(null);
+        updateArticleByArticleId(article.article_id, hasVoted)
+          .then((result) => {
+            setHasVoted(false);
+          })
+          .catch((err) => {
+            setVoteCount((voteCount) => voteCount + 1);
+            setError("Vote update was not succesfull. Please try again!");
+          });
+      }
     } else {
-      setVoteCount((voteCount) => voteCount - 1);
-      setError(null);
-      updateArticleByArticleId(article.article_id, hasVoted)
-        .then((result) => {
-          setHasVoted(false);
-        })
-        .catch((err) => {
-          setVoteCount((voteCount) => voteCount + 1);
-          setError("Vote update was not succesfull. Please try again!");
-        });
+      setError("Please log in to post comments and like");
     }
   }
 
@@ -85,21 +94,29 @@ const Article = () => {
     <div id="article-page-container">
       <div className="article-page-img-container">
         <img src={article.article_img_url}></img>
+        {error ? (
+          <div id="pop-up-error" className="article-page-heart-error-msg">
+            <p>{error}</p>
+            <button
+              onClick={() => {
+                setError(null);
+                closePopup();
+              }}
+            >
+              close
+            </button>
+          </div>
+        ) : null}
 
         <div className="like-dislike-button">
           <p
             className="article-page-heart-icon"
             onClick={handleVoteClick}
-            style={{ color: hasVoted ? "#ff64e8" : "#646cff" }}
+            style={{ color: hasVoted ? "#ff64e8" : "#ffff" }}
           >
             <Heart size={25} />
           </p>
-          {error ? (
-            <div id="pop-up-error" className="article-page-heart-error-msg">
-              <p>{error}</p>
-              <button onClick={closePopup}>close</button>
-            </div>
-          ) : null}
+
           <p className="article-tile-heart-count">
             <span>{voteCount}</span>
           </p>
@@ -113,6 +130,7 @@ const Article = () => {
         </Link>
         <Link to={`/topic/${article.topic}`}>
           <button
+            className="article-image-topic-button"
             onClick={() => {
               setCurrentTopic(article.topic);
             }}
@@ -134,30 +152,3 @@ const Article = () => {
 };
 
 export default Article;
-
-// <div className="article-page-buttons">
-//       <Link
-//         className="article-page-author-link"
-//         to={`/author/${article.author}`}
-//       >
-//         <p className="article-page-author">{article.author}</p>
-//       </Link>
-//       <div className="like-dislike-button">
-//         <p
-//           className="article-page-heart-icon"
-//           onClick={handleVoteClick}
-//           style={{ color: hasVoted ? "#ff64e8" : "#646cff" }}
-//         >
-//           <Heart size={25} />
-//         </p>
-//         {error ? (
-//           <div id="pop-up-error" className="article-page-heart-error-msg">
-//             <p>{error}</p>
-//             <button onClick={closePopup}>close</button>
-//           </div>
-//         ) : null}
-//         <p className="article-tile-heart-count">
-//           <span>{voteCount}</span>
-//         </p>
-//       </div>
-//     </div>

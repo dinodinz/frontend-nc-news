@@ -5,6 +5,7 @@ import {
   getCommentsByArticleId,
   addCommentByArticleId,
   deleteCommentById,
+  updateCommentByCommentId,
 } from "../utils/Api";
 import { Link } from "react-router-dom";
 import { useLoggedUser } from "../contexts/AllContexts";
@@ -15,14 +16,16 @@ const Comments = ({ article }) => {
   const [logError, setLogError] = useState(null);
   const [postedComment, setPostedComment] = useState(false);
   const [deletedComment, setDeletedComment] = useState(false);
+  const [votedComment, setVotedComment] = useState(false);
   const { loggedUser } = useLoggedUser();
 
   useEffect(() => {
     setDeletedComment(false);
+    setVotedComment(false);
     getCommentsByArticleId(article.article_id).then((allComments) => {
       setAllComments(allComments);
     });
-  }, [postedComment, deletedComment]);
+  }, [postedComment, deletedComment, votedComment]);
 
   function handleCommentSubmit(event) {
     event.preventDefault();
@@ -53,6 +56,24 @@ const Comments = ({ article }) => {
     });
   }
 
+  function handleCommentVote(upDown, comment_id, comment_votes) {
+    if (upDown === "up") {
+      updateCommentByCommentId(
+        { updateVote: comment_votes + 1, update: "increase" },
+        comment_id
+      ).then(() => {
+        setVotedComment(true);
+      });
+    } else {
+      updateCommentByCommentId(
+        { updateVote: comment_votes - 1, update: "decrease" },
+        comment_id
+      ).then(() => {
+        setVotedComment(true);
+      });
+    }
+  }
+
   return (
     <>
       <div className="comment-input-btn-container">
@@ -61,7 +82,8 @@ const Comments = ({ article }) => {
             <p>{logError}</p>
             <button
               onClick={() => {
-                closeCommentPopup(setLogError);
+                setLogError(null);
+                closeCommentPopup();
               }}
             >
               close
@@ -106,25 +128,30 @@ const Comments = ({ article }) => {
               <li>{comment.body}</li>
               <div className="comment-author-timestamp">
                 <p>{getTimestamp(comment.created_at)}</p>
-                {/* 
-                {logError ? (
-                  <div id="comment-pop-up-error">
-                    <p>{logError}</p>
-                    <button
-                      onClick={() => {
-                        closeCommentPopup(setLogError);
-                      }}
-                    >
-                      close
-                    </button>
-                  </div>
-                ) : null} */}
 
                 <div className="comment-like-dislike-button">
-                  <p className="">
+                  <p
+                    className="increase-thumbs-up"
+                    onClick={(event) => {
+                      handleCommentVote(
+                        "up",
+                        comment.comment_id,
+                        comment.votes
+                      );
+                    }}
+                  >
                     <ThumbsUp size={25} />
                   </p>
-                  <p className="">
+                  <p
+                    className="decrease-thumbs-up"
+                    onClick={(event) => {
+                      handleCommentVote(
+                        "down",
+                        comment.comment_id,
+                        comment.votes
+                      );
+                    }}
+                  >
                     <ThumbsDown size={25} />
                   </p>
                   <p className="article-page-vote-count">

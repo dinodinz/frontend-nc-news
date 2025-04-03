@@ -35,7 +35,14 @@ function App() {
                 </ErrorPageProvider>
               }
             ></Route>
-            <Route path="/author/:author_name" element={<Author />}></Route>
+            <Route
+              path="/author/:author_name"
+              element={
+                <ArticleListProvider>
+                  <Author />
+                </ArticleListProvider>
+              }
+            ></Route>
 
             <Route
               path="/login"

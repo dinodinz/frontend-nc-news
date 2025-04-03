@@ -96,8 +96,8 @@
 }
 
 .header-info img {
-  width: 25%;
-  height: 25%;
+  width: 6rem;
+  height: 6rem;
   margin-right: 15px;
   border-radius: 50%;
   border: 3px #646cff solid;
@@ -142,6 +142,10 @@
   color: #fff;
   font-weight: 500;
   font-size: 3.8rem;
+}
+
+.header-logo :hover {
+  color: #646cff;
 }
 
 .header-logo {
@@ -265,6 +269,12 @@
   border: 1.5px rgb(0, 0, 0) solid;
   box-shadow: -3px 3px 0 hsla(0, 0%, 100%, 0.8);
   width: 8rem;
+  transition: transform 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+}
+
+.header-create-button button:hover {
+  background-color: #bdf80b;
+  transform: scale(1.1);
 }
 
 .header-login-button button {
@@ -275,6 +285,12 @@
   border: 1.5px rgb(0, 0, 0) solid;
   box-shadow: -3px 3px 0 hsla(0, 0%, 100%, 0.8);
   width: 8rem;
+  transition: transform 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+}
+
+.header-login-button button:hover {
+  background-color: #7745ff;
+  transform: scale(1.1);
 }
 
 .header-middle-nav {
@@ -369,6 +385,10 @@
   cursor: pointer;
 }
 
+#sort:hover {
+  color: #646cff;
+}
+
 .triangle-order-btn-container {
   display: flex;
   flex-direction: row;
@@ -385,6 +405,15 @@
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 10px;
+}
+
+#ASC:hover,
+#DESC:hover {
+  color: #fff;
+}
+
+.triangle-order-btn-container p:hover {
+  color: #646cff;
 }
 
 .triangle-icons {
@@ -464,7 +493,8 @@
 
 .like-dislike-button * {
   margin-bottom: 5px;
-  color: #fff;
+  font-weight: 850;
+  font-size: 1.1rem;
 }
 
 .article-page-author {
@@ -527,6 +557,11 @@
   border: 1px #000 solid;
   padding: 3px 10px 3px 10px;
   box-shadow: -3px 3px 0 hsla(0, 0%, 3%, 0.8);
+  transition: transform 0.3s cubic-bezier(0.25, 1.5, 0.5, 1);
+}
+
+.comment-btn-container button:hover {
+  transform: scale(1.05);
 }
 
 .comment-btn-container {
@@ -613,30 +648,33 @@
 
 .article-page-heart-error-msg {
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #646cff;
-  /* border: 1px white solid; */
-  border-radius: 15px;
-}
-.article-page-heart-error-msg {
-  position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #242424dd;
   border: 1px #646cff solid;
-  border-radius: 8px;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  height: 40%;
 }
 
 .article-page-heart-error-msg button {
   margin: 5px 5px;
   font-size: 0.7rem;
-  background-color: #646cff;
+  background-color: #92bb16;
   margin-bottom: 10px;
   color: black;
   font-weight: bold;
+  margin-bottom: 10px;
+  width: 50%;
+  border-radius: 11px;
+  border: 1px #000 solid;
+  padding: 3px 10px 3px 10px;
+  box-shadow: -3px 3px 0 hsla(0, 0%, 3%, 0.8);
 }
 
 .article-page-heart-error-msg p {
@@ -827,7 +865,7 @@
   position: relative;
 }
 
-.article-page-img-container button {
+.article-image-topic-button {
   position: absolute;
   bottom: 1.3%;
   left: 0;
@@ -890,4 +928,80 @@
 .footer-github-logo a,
 .footer-linkedin-logo a {
   color: #fff;
+}
+
+.increase-thumbs-up,
+.decrease-thumbs-up {
+  cursor: pointer;
+}
+
+/*========= AUTHOR PAGE =========*/
+
+#author-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  background: hsla(219, 79%, 41%, 0.13);
+  margin-top: 20px;
+  border-radius: 15px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.article-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  justify-content: center;
+}
+
+.authorpage-author-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.authorpage-author-info {
+  display: flex;
+  flex-direction: row;
+  /* align-self: start; */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 5px 20px;
+  border-radius: 20px;
+  border: 6px #ffffff3d solid;
+  /* border: 6px #92bb16 solid; */
+  height: 150px;
+  width: auto;
+}
+
+.authorpage-author-info img {
+  max-height: 70%;
+  border-radius: 100px;
+  object-fit: contain;
+  width: auto;
+  align-self: center;
+}
+
+.authorpage-author-info-text {
+  padding-left: 20px;
+  text-align: left;
+}
+
+.authorpage-author-about-me {
+  height: 150px;
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.wrapper-about-me {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
 }

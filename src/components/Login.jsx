@@ -48,6 +48,7 @@ const Login = () => {
         className="login-input-field"
         onChange={(event) => {
           setusername(event.target.value);
+          setIsInvalidUsername(false);
         }}
       ></input>
       {isInvalidUsername ? (

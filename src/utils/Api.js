@@ -71,3 +71,9 @@ export const addUser = (reqBody) => {
     return response.data.allUsers;
   });
 };
+
+export const updateCommentByCommentId = (reqBody, comment_id) => {
+  return ncNews.patch(`/comments/${comment_id}`, reqBody).then((response) => {
+    return response.data.updatedComment;
+  });
+};

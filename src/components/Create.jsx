@@ -102,7 +102,7 @@ const Create = () => {
 
       {noAvatar ? (
         <p className="invalid-username-error">
-          Please provide an avatar Image!
+          Please provide a 1x1 avatar Image!
         </p>
       ) : null}
 
