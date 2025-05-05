@@ -17,6 +17,10 @@ const Header = () => {
     });
   }, []);
 
+  function HandleLogout() {
+    window.location.href = "/";
+  }
+
   return (
     <div id="header">
       <div className="header-toolbar">
@@ -44,7 +48,16 @@ const Header = () => {
           !createPage &&
           (loggedUser ? (
             <div className="header-info">
-              <img src={loggedUser.avatar_url}></img>
+              <div className="logout-avatar-container">
+                <img src={loggedUser.avatar_url}></img>
+                <button
+                  type="submit"
+                  className="logout-button"
+                  onClick={HandleLogout}
+                >
+                  Logout
+                </button>
+              </div>
               <div className="header-name-username">
                 <p>
                   <span>Username:</span>
