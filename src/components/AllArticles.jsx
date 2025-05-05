@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getArticles } from "../utils/Api.js";
+import { getArticles, updateVoteHomepage } from "../utils/Api.js";
 import FooterCredits from "./FooterCredits.jsx";
 import {
   ThumbsUp,
@@ -19,39 +19,20 @@ const AllArticles = () => {
   const { articles, setArticles } = useArticleState();
   const { setCurrentTopic } = useTopicState();
   const [defaultSort, setDefaultSort] = useState("created_at");
+  const [likedArticle, setLikedArticle] = useState(false);
 
   useEffect(() => {
     getArticles(null, defaultSort, order).then((allArticles) => {
       setArticles(allArticles);
       setIsLoading(false);
     });
-  }, [defaultSort, order]);
+  }, [defaultSort, order, likedArticle]);
 
-  // function handleVoteClick() {
-  //   if (!hasVoted) {
-  //     setVoteCount((voteCount) => voteCount + 1);
-  //     setError(null);
-  //     updateArticleByArticleId(article.article_id, hasVoted)
-  //       .then((result) => {
-  //         setHasVoted(true);
-  //       })
-  //       .catch((err) => {
-  //         setVoteCount((voteCount) => voteCount - 1);
-  //         setError("Vote submission was not succesfull. Please try again!");
-  //       });
-  //   } else {
-  //     setVoteCount((voteCount) => voteCount - 1);
-  //     setError(null);
-  //     updateArticleByArticleId(article.article_id, hasVoted)
-  //       .then((result) => {
-  //         setHasVoted(false);
-  //       })
-  //       .catch((err) => {
-  //         setVoteCount((voteCount) => voteCount + 1);
-  //         setError("Vote update was not succesfull. Please try again!");
-  //       });
-  //   }
-  // }
+  function handleVoteClick(article_id) {
+    updateVoteHomepage(article_id).then(() => {
+      setLikedArticle(!likedArticle);
+    });
+  }
 
   if (isLoading) {
     return (
@@ -151,13 +132,13 @@ const AllArticles = () => {
                   <p className="article-tile-author">{article.author}</p>
                 </Link>
                 <div className="article-tile-like-dislike-button-container">
-                  <p
-                    className="article-tile-thumbs-up-icon"
-                    onClick={() => {
-                      handleVoteClick(article.article_id);
-                    }}
-                  >
-                    <ThumbsUp size={25} />
+                  <p className="article-tile-thumbs-up-icon">
+                    <ThumbsUp
+                      size={25}
+                      onClick={() => {
+                        handleVoteClick(article.article_id);
+                      }}
+                    />
                   </p>
                   <p className="article-tile-thumbs-up-count">
                     <span>{article.votes}</span>
