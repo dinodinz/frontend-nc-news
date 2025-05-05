@@ -17,6 +17,7 @@ const Comments = ({ article }) => {
   const [postedComment, setPostedComment] = useState(false);
   const [deletedComment, setDeletedComment] = useState(false);
   const [votedComment, setVotedComment] = useState(false);
+  const [thumbsUpColor, setThumbsUpColor] = useState(false);
   const { loggedUser } = useLoggedUser();
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const Comments = ({ article }) => {
         setLogError("Please provide your comment");
       }
     } else {
-      setLogError("Please log in to post comments and like");
+      setLogError("Please log in to post comments");
     }
   }
 
@@ -140,7 +141,10 @@ const Comments = ({ article }) => {
                       );
                     }}
                   >
-                    <ThumbsUp size={25} />
+                    <ThumbsUp
+                      size={25}
+                      style={votedComment ? { color: "red" } : null}
+                    />
                   </p>
                   <p
                     className="decrease-thumbs-up"
