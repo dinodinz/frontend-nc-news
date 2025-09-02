@@ -1,5 +1,5 @@
-import AllArticles from "./AllArticles";
-import { ArticleListProvider } from "../contexts/AllContexts";
+import AllArticles from "../Article/AllArticles";
+import { ArticleListProvider } from "../../contexts/AllContexts";
 
 const MainContent = () => {
   return (

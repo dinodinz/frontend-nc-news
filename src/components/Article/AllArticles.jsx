@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getArticles, updateVoteHomepage } from "../utils/Api.js";
-import FooterCredits from "./FooterCredits.jsx";
-import { useArticleState, useTopicState } from "../contexts/AllContexts.jsx";
+import { getArticles, updateVoteHomepage } from "../../utils/Api.js";
+import FooterCredits from "../UI/FooterCredits.jsx";
+import { useArticleState, useTopicState } from "../../contexts/AllContexts.jsx";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import SortByContainer from "./SortBy.jsx";
+import SortByContainer from "../UI/SortBy.jsx";
 import ArticleTile from "./ArticleTile.jsx";
 
 const AllArticles = () => {
