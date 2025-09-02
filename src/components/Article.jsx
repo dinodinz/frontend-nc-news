@@ -11,6 +11,7 @@ import {
 } from "../contexts/AllContexts";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import FooterCredits from "./FooterCredits";
+import ArticlePageImage from "./ArticlePageImage";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -93,51 +94,15 @@ const Article = () => {
   return (
     <div id="article-page-container">
       <div className="article-page-img-container">
-        <img src={article.article_img_url}></img>
-        {error ? (
-          <div id="pop-up-error" className="article-page-heart-error-msg">
-            <p>{error}</p>
-            <button
-              onClick={() => {
-                setError(null);
-                closePopup();
-              }}
-            >
-              close
-            </button>
-          </div>
-        ) : null}
-
-        <div className="like-dislike-button">
-          <p
-            className="article-page-heart-icon"
-            onClick={handleVoteClick}
-            style={{ color: hasVoted ? "#ff64e8" : "#ffff" }}
-          >
-            <Heart size={25} />
-          </p>
-
-          <p className="article-tile-heart-count">
-            <span>{voteCount}</span>
-          </p>
-        </div>
-
-        <Link
-          className="article-page-author-link"
-          to={`/author/${article.author}`}
-        >
-          <p className="article-page-author">{article.author}</p>
-        </Link>
-        <Link to={`/topic/${article.topic}`}>
-          <button
-            className="article-image-topic-button"
-            onClick={() => {
-              setCurrentTopic(article.topic);
-            }}
-          >
-            {article.topic.charAt(0).toUpperCase() + article.topic.slice(1)}
-          </button>
-        </Link>
+        <ArticlePageImage
+          article={article}
+          error={error}
+          setError={setError}
+          handleVoteClick={handleVoteClick}
+          hasVoted={hasVoted}
+          voteCount={voteCount}
+          setCurrentTopic={setCurrentTopic}
+        />
       </div>
 
       <div className="article-body">
