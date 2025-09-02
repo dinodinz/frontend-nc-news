@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { getTimestamp, closeCommentPopup } from "../utils/UtilFunctions";
+import { getTimestamp, closeCommentPopup } from "../../utils/UtilFunctions";
 import { ThumbsUp, ThumbsDown } from "@phosphor-icons/react";
 import {
   getCommentsByArticleId,
   addCommentByArticleId,
   deleteCommentById,
   updateCommentByCommentId,
-} from "../utils/Api";
+} from "../../utils/Api";
 import { Link } from "react-router-dom";
-import { useLoggedUser } from "../contexts/AllContexts";
+import { useLoggedUser } from "../../contexts/AllContexts";
 
 const Comments = ({ article }) => {
   const [allComments, setAllComments] = useState([]);

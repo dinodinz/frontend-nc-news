@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import {
   AppProvider,
   ArticleListProvider,
@@ -7,14 +7,14 @@ import {
   TopicsProvider,
   HasCreatedProvider,
 } from "./contexts/AllContexts";
-import MainContent from "./components/MainContent";
-import Article from "./components/Article";
-import Login from "./components/Login";
-import Create from "./components/Create";
-import Author from "./components/Author";
+import MainContent from "./components/UI/MainContent";
+import Article from "./components/Article/Article";
+import Login from "./components/Header/Login";
+import Create from "./components/Header/Create";
+import Author from "./components/Author/Author";
 import "./App.css";
-import Topics from "./components/Topics";
-import ErrorPage from "./components/ErrorPage";
+import Topics from "./components/Topics/Topics";
+import ErrorPage from "./components/UI/ErrorPage";
 
 function App() {
   return (

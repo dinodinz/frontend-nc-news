@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useMatch } from "react-router-dom";
-import { getUserByUsername } from "../utils/Api";
-import { useLoggedUser } from "../contexts/AllContexts";
-import { getTopics } from "../utils/Api";
+import { useLoggedUser } from "../../contexts/AllContexts";
+import { getTopics, getUserByUsername } from "../../utils/Api";
 
 const Header = () => {
   const loginPage = useLocation().pathname === "/login";

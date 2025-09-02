@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Heart } from "@phosphor-icons/react";
-import { closePopup } from "../utils/UtilFunctions";
+import { closePopup } from "../../utils/UtilFunctions";
 
 const ArticlePageImage = ({
   article,

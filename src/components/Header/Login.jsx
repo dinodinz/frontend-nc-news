@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { getUserByUsername } from "../utils/Api";
+import { getUserByUsername } from "../../utils/Api";
 import { useNavigate, Link } from "react-router-dom";
-import { useLoggedUser, useHasCreatedState } from "../contexts/AllContexts";
-import FooterCredits from "./FooterCredits.jsx";
+import { useLoggedUser, useHasCreatedState } from "../../contexts/AllContexts";
+import FooterCredits from "../UI/FooterCredits.jsx";
 
 const Login = () => {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);

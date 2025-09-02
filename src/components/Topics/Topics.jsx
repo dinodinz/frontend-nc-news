@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { getArticles, getTopics } from "../utils/Api.js";
+import { getArticles, getTopics } from "../../utils/Api.js";
 import { ThumbsUp, ChatTeardropText, ImageBroken } from "@phosphor-icons/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useArticleState,
   useErrorPageState,
   useTopicState,
-} from "../contexts/AllContexts.jsx";
+} from "../../contexts/AllContexts.jsx";
 
 const Topics = () => {
   const navigate = useNavigate();

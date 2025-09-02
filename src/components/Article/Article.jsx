@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getArticleById, updateArticleByArticleId } from "../utils/Api";
-import { closePopup } from "../utils/UtilFunctions";
+import { getArticleById, updateArticleByArticleId } from "../../utils/Api";
+import { closePopup } from "../../utils/UtilFunctions";
 import { useParams, Link } from "react-router-dom";
 import { Heart, ImageBroken } from "@phosphor-icons/react";
 import Comments from "./Comments";
@@ -8,9 +8,9 @@ import {
   useErrorPageState,
   useTopicState,
   useLoggedUser,
-} from "../contexts/AllContexts";
+} from "../../contexts/AllContexts";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import FooterCredits from "./FooterCredits";
+import FooterCredits from "../UI/FooterCredits";
 import ArticlePageImage from "./ArticlePageImage";
 
 const Article = () => {

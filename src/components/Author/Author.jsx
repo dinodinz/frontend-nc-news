@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getArticles, getUserByUsername } from "../utils/Api";
-import { useArticleState } from "../contexts/AllContexts";
+import { getArticles, getUserByUsername } from "../../utils/Api";
+import { useArticleState } from "../../contexts/AllContexts";
 import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
 
 const Author = () => {
