@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { getUserByUsername } from "../../utils/Api";
 import { useNavigate, Link } from "react-router-dom";
-import { useLoggedUser, useHasCreatedState } from "../../contexts/AllContexts";
 import FooterCredits from "../UI/FooterCredits.jsx";
+import { setLoggedUser } from "../../redux/loggedUserSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [isInvalidUsername, setIsInvalidUsername] = useState(false);
+  const [usernameFormat, setUsernameFormat] = useState(false);
   const [username, setusername] = useState("");
-  const { setLoggedUser } = useLoggedUser();
   const navigate = useNavigate();
-  const { hasCreated, setHasCreated } = useHasCreatedState();
+  const hasCreated = useSelector((state) => state.hasCreated.hasCreated);
+  const dispatch = useDispatch();
 
   function handleLogin(event) {
     event.preventDefault();
@@ -19,23 +21,17 @@ const Login = () => {
       getUserByUsername(event.target.value)
         .then((successUserLogin) => {
           setIsInvalidUsername(false);
-          setLoggedUser(successUserLogin);
+          dispatch(setLoggedUser(successUserLogin));
           navigate(`/`);
         })
         .catch((err) => {
           setIsInvalidUsername(true);
         });
-    }
+    } else setUsernameFormat(true);
   }
 
   return (
     <div className="login-main-content">
-      {/* {isInvalidUsername && username.length < 3 ? (
-        <p className="invalid-username-error">
-          Please enter a username with a minimum of 3 characters!
-        </p>
-      ) : null} */}
-
       {hasCreated ? (
         <p className="created-account-notification">
           Your account has been created! Please login
@@ -49,10 +45,17 @@ const Login = () => {
         onChange={(event) => {
           setusername(event.target.value);
           setIsInvalidUsername(false);
+          setUsernameFormat(false);
         }}
       ></input>
       {isInvalidUsername ? (
         <p className="invalid-username-error">Username does not exist</p>
+      ) : null}
+
+      {usernameFormat ? (
+        <p className="invalid-username-error">
+          Please enter a username Value!!
+        </p>
       ) : null}
       <button
         type="submit"

@@ -8,7 +8,7 @@ import {
   updateCommentByCommentId,
 } from "../../utils/Api";
 import { Link } from "react-router-dom";
-import { useLoggedUser } from "../../contexts/AllContexts";
+import { useSelector } from "react-redux";
 
 const Comments = ({ article }) => {
   const [allComments, setAllComments] = useState([]);
@@ -18,7 +18,7 @@ const Comments = ({ article }) => {
   const [deletedComment, setDeletedComment] = useState(false);
   const [votedComment, setVotedComment] = useState(false);
   const [thumbsUpColor, setThumbsUpColor] = useState(false);
-  const { loggedUser } = useLoggedUser();
+  const loggedUser = useSelector((state) => state.loggedUser.loggedUser);
 
   useEffect(() => {
     setDeletedComment(false);

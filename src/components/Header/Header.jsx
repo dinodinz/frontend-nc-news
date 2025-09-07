@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useMatch } from "react-router-dom";
-import { useLoggedUser } from "../../contexts/AllContexts";
-import { getTopics, getUserByUsername } from "../../utils/Api";
+import { getTopics } from "../../utils/Api";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const loginPage = useLocation().pathname === "/login";
   const createPage = useLocation().pathname === "/create";
   const authorPage = useMatch("/author/:author_name") !== null;
-  const { loggedUser, setLoggedUser } = useLoggedUser();
   const [topics, setTopics] = useState([]);
+  const loggedUser = useSelector((state) => state.loggedUser.loggedUser);
 
   useEffect(() => {
     getTopics().then((allTopics) => {

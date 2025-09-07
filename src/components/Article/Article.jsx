@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
 import { getArticleById, updateArticleByArticleId } from "../../utils/Api";
-import { closePopup } from "../../utils/UtilFunctions";
-import { useParams, Link } from "react-router-dom";
-import { Heart, ImageBroken } from "@phosphor-icons/react";
+import { useParams } from "react-router-dom";
+import { ImageBroken } from "@phosphor-icons/react";
 import Comments from "./Comments";
-import {
-  useErrorPageState,
-  useTopicState,
-  useLoggedUser,
-} from "../../contexts/AllContexts";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import FooterCredits from "../UI/FooterCredits";
 import ArticlePageImage from "./ArticlePageImage";
+import { useSelector, useDispatch } from "react-redux";
+import { setErrorPage } from "../../redux/errorSlice";
 
 const Article = () => {
   const [article, setArticle] = useState([]);
@@ -20,9 +16,9 @@ const Article = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [error, setError] = useState(null);
   const { article_id } = useParams();
-  const { setCurrentTopic } = useTopicState();
-  const { errorPage, setErrorPage } = useErrorPageState();
-  const { loggedUser } = useLoggedUser();
+  const dispatch = useDispatch();
+  const loggedUser = useSelector((state) => state.loggedUser.loggedUser);
+  const errorPage = useSelector((state) => state.error.errorPage);
 
   useEffect(() => {
     getArticleById(article_id)
@@ -32,7 +28,7 @@ const Article = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setErrorPage([err.response.status, err.response.data.error]);
+        dispatch(setErrorPage([err.response.status, err.response.data.error]));
         setIsLoading(false);
       });
   }, [hasVoted]);
@@ -101,7 +97,6 @@ const Article = () => {
           handleVoteClick={handleVoteClick}
           hasVoted={hasVoted}
           voteCount={voteCount}
-          setCurrentTopic={setCurrentTopic}
         />
       </div>
 
