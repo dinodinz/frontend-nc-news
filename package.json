@@ -13,10 +13,12 @@
     "@fontsource/inter": "^5.2.5",
     "@lottiefiles/dotlottie-react": "^0.13.2",
     "@phosphor-icons/react": "^2.1.7",
+    "@reduxjs/toolkit": "^2.9.0",
     "@supabase/supabase-js": "^2.49.3",
     "axios": "^1.7.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5"
   },
   "devDependencies": {

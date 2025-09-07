@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { getArticles, updateVoteHomepage } from "../../utils/Api.js";
 import FooterCredits from "../UI/FooterCredits.jsx";
-import { useArticleState, useTopicState } from "../../contexts/AllContexts.jsx";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import SortByContainer from "../UI/SortBy.jsx";
 import ArticleTile from "./ArticleTile.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { setArticles } from "../../redux/articleListSlice";
 
 const AllArticles = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [sortByValue, setSortByValue] = useState("");
   const [order, setOrder] = useState("DESC");
-  const { articles, setArticles } = useArticleState();
-  const { setCurrentTopic } = useTopicState();
   const [defaultSort, setDefaultSort] = useState("created_at");
   const [likedArticle, setLikedArticle] = useState(false);
+  const articles = useSelector((state) => state.articleList.articles);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getArticles(null, defaultSort, order).then((allArticles) => {
-      setArticles(allArticles);
+      dispatch(setArticles(allArticles));
       setIsLoading(false);
     });
   }, [defaultSort, order, likedArticle]);
@@ -58,7 +59,6 @@ const AllArticles = () => {
             key={article.article_id}
             article={article}
             handleVoteClick={handleVoteClick}
-            setCurrentTopic={setCurrentTopic}
           />
         ))}
       </div>

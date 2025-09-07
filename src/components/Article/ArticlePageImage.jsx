@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Heart } from "@phosphor-icons/react";
 import { closePopup } from "../../utils/UtilFunctions";
+import { useDispatch } from "react-redux";
+import { setCurrentTopic } from "../../redux/topicSlice";
 
 const ArticlePageImage = ({
   article,
@@ -9,8 +11,9 @@ const ArticlePageImage = ({
   handleVoteClick,
   hasVoted,
   voteCount,
-  setCurrentTopic,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <img src={article.article_img_url}></img>
@@ -52,7 +55,7 @@ const ArticlePageImage = ({
         <button
           className="article-image-topic-button"
           onClick={() => {
-            setCurrentTopic(article.topic);
+            dispatch(setCurrentTopic(article.topic));
           }}
         >
           {article.topic.charAt(0).toUpperCase() + article.topic.slice(1)}

@@ -2,32 +2,34 @@ import { useEffect, useState } from "react";
 import { getArticles, getTopics } from "../../utils/Api.js";
 import { ThumbsUp, ChatTeardropText, ImageBroken } from "@phosphor-icons/react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  useArticleState,
-  useErrorPageState,
-  useTopicState,
-} from "../../contexts/AllContexts.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentTopic } from "../../redux/topicSlice.js";
+import { setArticles } from "../../redux/articleListSlice.js";
+import { setErrorPage } from "../../redux/errorSlice.js";
 
 const Topics = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const { topic } = useParams();
-  const { articles, setArticles } = useArticleState();
   const [allTopic, setAllTopic] = useState([]);
-  const { currentTopic, setCurrentTopic } = useTopicState();
-  const { errorPage, setErrorPage } = useErrorPageState();
+  const currentTopic = useSelector((state) => state.topic.currentTopic);
+  const articles = useSelector((state) => state.articleList.articles);
+  const errorPage = useSelector((state) => state.error.errorPage);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (currentTopic === null) {
-      setCurrentTopic(topic);
+      dispatch(setCurrentTopic(topic));
     } else {
       getArticles(currentTopic)
         .then((topicRelatedArticles) => {
-          setArticles(topicRelatedArticles);
+          dispatch(setArticles(topicRelatedArticles));
           setIsLoading(false);
         })
         .catch((err) => {
-          setErrorPage([err.response.status, err.response.data.error]);
+          dispatch(
+            setErrorPage([err.response.status, err.response.data.error])
+          );
           setIsLoading(false);
         });
 
@@ -36,7 +38,9 @@ const Topics = () => {
           setAllTopic(allTopicResponse);
         })
         .catch((err) => {
-          setErrorPage([err.response.status, err.response.data.error]);
+          dispatch(
+            setErrorPage([err.response.status, err.response.data.error])
+          );
           setIsLoading(false);
         });
     }
@@ -70,7 +74,7 @@ const Topics = () => {
               <button
                 key={eachTopic.slug}
                 onClick={() => {
-                  setCurrentTopic(eachTopic.slug);
+                  dispatch(setCurrentTopic(eachTopic.slug));
                 }}
               >
                 {eachTopic.slug}
@@ -92,7 +96,7 @@ const Topics = () => {
               >
                 <button
                   onClick={() => {
-                    setCurrentTopic(article.topic);
+                    dispatch(setCurrentTopic(article.topic));
                   }}
                 >
                   {article.topic}

@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { ThumbsUp, ChatTeardropText } from "@phosphor-icons/react";
+import { setCurrentTopic } from "../../redux/topicSlice";
+import { useDispatch } from "react-redux";
 
-const ArticleTile = ({ article, handleVoteClick, setCurrentTopic }) => {
+const ArticleTile = ({ article, handleVoteClick }) => {
+  const dispatch = useDispatch();
+
   return (
     <div key={article.article_id} className="article-tile">
-      {/* Image + Topic */}
       <div className="all-articles-page-img-container">
         <Link to={`/article/${article.article_id}`}>
           <img src={article.article_img_url} alt={article.title} />
@@ -14,13 +17,12 @@ const ArticleTile = ({ article, handleVoteClick, setCurrentTopic }) => {
           className="all-article-topic-button"
           to={`/topic/${article.topic}`}
         >
-          <button onClick={() => setCurrentTopic(article.topic)}>
+          <button onClick={() => dispatch(setCurrentTopic(article.topic))}>
             {article.topic}
           </button>
         </Link>
       </div>
 
-      {/* Author + Votes + Comments */}
       <div className="article-tile-info">
         <Link
           className="article-tile-author-link"
@@ -52,7 +54,6 @@ const ArticleTile = ({ article, handleVoteClick, setCurrentTopic }) => {
         </div>
       </div>
 
-      {/* Title */}
       <p className="article-tile-title">{article.title}</p>
     </div>
   );

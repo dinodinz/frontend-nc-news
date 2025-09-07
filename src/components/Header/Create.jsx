@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { getUserByUsername, getUsers, addUser } from "../../utils/Api";
+import { getUsers, addUser } from "../../utils/Api";
 import { useNavigate, Link } from "react-router-dom";
-import { useLoggedUser, useHasCreatedState } from "../../contexts/AllContexts";
 import FooterCredits from "../UI/FooterCredits.jsx";
 import { createClient } from "@supabase/supabase-js";
+import { useDispatch } from "react-redux";
+import { setHasCreated } from "../../redux/hasCreatedSlice.js";
 
 const supabase = createClient(
   `https://txpahruvquebfezdyjxg.supabase.co`,
@@ -15,9 +16,9 @@ const Create = () => {
   const [noAvatar, setNoAvatar] = useState(false);
   const [username, setusername] = useState("");
   const [firstName, setfirstName] = useState("");
-  const { setHasCreated } = useHasCreatedState();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState("");
+  const dispatch = useDispatch();
 
   async function handleCreate(event) {
     event.preventDefault();
@@ -29,7 +30,7 @@ const Create = () => {
         name: firstName,
         avatar_url: imageUrl,
       }).then(() => {
-        setHasCreated(true);
+        dispatch(setHasCreated(true));
         navigate("/login");
       });
     } else if (usernameInput.length < 3) {
