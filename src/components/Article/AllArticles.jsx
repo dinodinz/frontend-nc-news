@@ -36,7 +36,7 @@ const AllArticles = () => {
           src="https://lottie.host/64874a31-dac6-4247-8bf9-ff1be54f880d/jzje4DTIL8.lottie"
           loop
           autoplay
-          className="car-animation"
+          className="w-2/3 relative"
         />
         <p className="loading-msg">Loading...</p>
       </div>

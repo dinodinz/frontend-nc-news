@@ -21,14 +21,16 @@ const Header = () => {
   }
 
   return (
-    <div id="header">
-      <div className="header-toolbar">
+    <div className="flex flex-row w-[95%] bg-[hsla(219,79%,41%,0.13)] rounded-[15px] mt-[40px]">
+      <div className="flex flex-row w-screen justify-between items-center relative">
         <Link to="/" className="header-logo-link">
-          <div className="header-logo">
-            <h1>
-              <span>NC</span>
+          <div className="header-logo border-2 border-white flex flex-col my-[30px] ml-[30px] mr-[auto]">
+            <h1 className="m-[0px] pt-[5px] scale-y-[1.1]">
+              <span className=" hover:text-[#646cff]  text-white font-medium text-[3.8rem]">
+                NC
+              </span>
             </h1>
-            <p>news</p>
+            <p className=" hover:text-[#646cff] ">news</p>
           </div>
         </Link>
 
@@ -46,24 +48,28 @@ const Header = () => {
         {!loginPage &&
           !createPage &&
           (loggedUser ? (
-            <div className="header-info">
-              <div className="logout-avatar-container">
-                <img src={loggedUser.avatar_url}></img>
+            <div className="flex flex-row justify-end items-center">
+              <div className="logout-avatar-container flex flex-col items-center gap-y-[10px] ">
+                <img
+                  src={loggedUser.avatar_url}
+                  className="w-[6rem] h-[6rem] mr-[15px] rounded-full border-3 border-[#646cff]"
+                ></img>
                 <button
                   type="submit"
-                  className="logout-button"
+                  className="logout-button bg-[#916bfd] text-[black] rounded-[18px] border-[1.5px] border-[black] w-[6rem] hover:scale-108"
                   onClick={HandleLogout}
                 >
                   Logout
                 </button>
               </div>
-              <div className="header-name-username">
+              <div className="text-left pr-[20px]">
                 <p>
-                  <span>Username:</span>
+                  <span className="text-[#646cff] font-bold">Username:</span>
                   <br /> {loggedUser.username}
                 </p>
                 <p>
-                  <span>Name:</span> <br /> {loggedUser.name}
+                  <span className="text-[#646cff] font-bold">Name:</span> <br />{" "}
+                  {loggedUser.name}
                 </p>
               </div>
             </div>
