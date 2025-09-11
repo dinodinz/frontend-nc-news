@@ -11,7 +11,7 @@ import ErrorPage from "./components/UI/ErrorPage";
 
 function App() {
   return (
-    <div className="universal-container">
+    <div className="h-full w-full flex flex-col items-center">
       <Header />
 
       <Routes>
