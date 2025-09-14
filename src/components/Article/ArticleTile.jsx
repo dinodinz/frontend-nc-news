@@ -7,7 +7,10 @@ const ArticleTile = ({ article, handleVoteClick }) => {
   const dispatch = useDispatch();
 
   return (
-    <div key={article.article_id} className="article-tile">
+    <div
+      key={article.article_id}
+      className="article-tile w-[300px] bg-[white] pt-[10px] px-[5px] pb-[15px] rounded-[10px]"
+    >
       <div className="all-articles-page-img-container">
         <Link to={`/article/${article.article_id}`}>
           <img src={article.article_img_url} alt={article.title} />

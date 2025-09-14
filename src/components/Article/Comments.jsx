@@ -38,6 +38,7 @@ const Comments = ({ article }) => {
         addCommentByArticleId(article.article_id, commentBody, username).then(
           (response) => {
             setPostedComment(comment);
+            setComment("");
           }
         );
       } else {
@@ -95,6 +96,7 @@ const Comments = ({ article }) => {
           <textarea
             className="comment-input-box"
             placeholder="Write a comment..."
+            value={comment}
             onChange={(event) => {
               setComment(event.target.value);
             }}
