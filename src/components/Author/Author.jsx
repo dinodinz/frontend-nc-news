@@ -8,6 +8,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { setArticles } from "../../redux/articleListSlice";
 import ArticleTile from "../Article/ArticleTile.jsx";
+import FooterCredits from "../UI/FooterCredits.jsx";
 
 const Author = () => {
   const { author_name } = useParams();
@@ -53,7 +54,7 @@ const Author = () => {
       </div>
       <h1 style={{ fontSize: "2rem" }}>Articles</h1>
 
-      <div className="article-container">
+      <div className="article-container mb-[70px]">
         {articles.map((article) => (
           <ArticleTile
             key={article.article_id}
@@ -62,6 +63,7 @@ const Author = () => {
           />
         ))}
       </div>
+      <FooterCredits />
     </div>
   );
 };
