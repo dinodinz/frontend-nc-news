@@ -484,9 +484,9 @@
   font-size: 1rem;
 }
 
-.loading-msg-container svg {
+/* .loading-msg-container svg {
   color: #ff646c;
-}
+} */
 
 .loading-msg {
   font-weight: 700;
