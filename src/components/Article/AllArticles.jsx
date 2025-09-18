@@ -6,6 +6,7 @@ import SortByContainer from "../UI/SortBy.jsx";
 import ArticleTile from "./ArticleTile.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { setArticles } from "../../redux/articleListSlice";
+import { clearErrorPage } from "../../redux/errorSlice";
 
 const AllArticles = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,7 @@ const AllArticles = () => {
     getArticles(null, defaultSort, order).then((allArticles) => {
       dispatch(setArticles(allArticles));
       setIsLoading(false);
+      dispatch(clearErrorPage());
     });
   }, [defaultSort, order, likedArticle]);
 
