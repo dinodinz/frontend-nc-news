@@ -936,10 +936,6 @@
   transform: translateX(-50%);
 }
 
-.article-tile:last-child {
-  margin-bottom: 100px;
-}
-
 .footer-github-logo {
   margin-left: 10px;
 }

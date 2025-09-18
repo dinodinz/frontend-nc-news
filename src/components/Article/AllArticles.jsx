@@ -54,7 +54,7 @@ const AllArticles = () => {
         setOrder={setOrder}
       />
 
-      <div className="all-article-container">
+      <div className="all-article-container mb-[70px]">
         {articles.map((article) => (
           <ArticleTile
             key={article.article_id}
