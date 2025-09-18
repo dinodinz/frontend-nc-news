@@ -65,24 +65,34 @@ const Article = () => {
 
   if (isLoading) {
     return (
-      <div className="loading-msg-container">
-        <DotLottieReact
-          src="https://lottie.host/64874a31-dac6-4247-8bf9-ff1be54f880d/jzje4DTIL8.lottie"
-          loop
-          autoplay
-          className="w-2/3 relative"
-        />
-        <p className="loading-msg">Loading...</p>
+      <div className="w-[95%] flex flex-col bg-[hsla(219,79%,41%,0.13)] rounded-[15px] mt-[20px] pt-[20px] mb-5[20px] pb-[20px] relative">
+        <div className="loading-msg-container">
+          <DotLottieReact
+            src="https://lottie.host/64874a31-dac6-4247-8bf9-ff1be54f880d/jzje4DTIL8.lottie"
+            loop
+            autoplay
+            className="w-2/3 relative"
+          />
+          <p className="loading-msg">Loading...</p>
+        </div>
+        <FooterCredits />
       </div>
     );
   }
 
   if (errorPage) {
     return (
-      <div className="loading-msg-container">
-        <ImageBroken size={130} className="" />
-        <p className="loading-msg">{"Error:" + errorPage[0]}</p>
-        <p className="loading-msg">{errorPage[1]}</p>
+      <div className="w-[95%] flex flex-col bg-[hsla(219,79%,41%,0.13)] rounded-[15px] mt-[20px] pt-[20px] mb-5[20px] pb-[20px] relative">
+        <div className="flex flex-col items-center h-screen justify-center gap-4">
+          <ImageBroken size={130} className="mb-[20px] text-[#ff646c]" />
+          <p className="font-[900] tracking-[5px] text-[1.4rem]">
+            {"Error:" + errorPage[0]}
+          </p>
+          <p className="font-[900] tracking-[5px] text-[1.4rem]">
+            {errorPage[1]}
+          </p>
+        </div>
+        <FooterCredits />
       </div>
     );
   }

@@ -39,6 +39,7 @@ const AllArticles = () => {
           className="w-2/3 relative"
         />
         <p className="loading-msg">Loading...</p>
+        <FooterCredits />
       </div>
     );
   }
