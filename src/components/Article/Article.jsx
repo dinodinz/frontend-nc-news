@@ -80,7 +80,7 @@ const Article = () => {
   if (errorPage) {
     return (
       <div className="loading-msg-container">
-        <ImageBroken size={130} />
+        <ImageBroken size={130} className="" />
         <p className="loading-msg">{"Error:" + errorPage[0]}</p>
         <p className="loading-msg">{errorPage[1]}</p>
       </div>
