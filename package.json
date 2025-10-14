@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "e2e": "npx playwright test --ui",
+    "debug": "npx playwright test --project=chromium --debug"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.5",
@@ -25,6 +27,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.5.2",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
