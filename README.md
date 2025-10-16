@@ -14,6 +14,7 @@ Node.js = v23.3.0
 - **Phospor Icons** (for icon components)
 - **Vite** (For easily previewing your react work)
 - **ES6 Javascript** (syntax used for the whole project)
+- **Playwright** (used for e2e automation testing)
 
 ## Summary:
 
