@@ -1,8 +1,7 @@
-name: Playwright Tests Finalsz
+name: Playwright Tests
 
 on:
   pull_request:
-  push:
     branches:
       - main
 
