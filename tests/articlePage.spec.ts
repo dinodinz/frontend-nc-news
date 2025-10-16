@@ -1,6 +1,6 @@
 import { test, expect, Locator } from "@playwright/test";
 
-test.describe.skip("test article page", () => {
+test.describe("test article page", () => {
   let tileTopic: Locator;
   let tileAuthor: Locator;
   let tileThumbsUp: Locator;
