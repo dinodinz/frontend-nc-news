@@ -1,5 +1,6 @@
 import { test } from "../fixtures/testFixtures";
 import { expect } from "@playwright/test";
+import { loginFlow } from "../workflows/login.workflow";
 
 test.describe("test create account page", () => {
   test.beforeEach(async ({ createPage }) => {
@@ -15,7 +16,7 @@ test.describe("test create account page", () => {
     await createPage.fillFields("Dino Dinz", uniqueUsername);
     expect(createPage.validUserWarning).toHaveText("Username is available");
     await createPage.uploadAvatar();
-    await loginPage.login(uniqueUsername);
+    await loginFlow(loginPage, uniqueUsername);
     const validUsername = await loginPage.assertLoginSuccess(uniqueUsername);
     expect(validUsername.status()).toBe(200);
   });
@@ -27,7 +28,7 @@ test.describe("test create account page", () => {
     await createPage.clickCreateUser();
     await createPage.waitForLoading();
     await expect(createPage.invalidUserWarning).toHaveText(
-      "Please enter a username with a minimum of 3 characters!"
+      "Please enter a username with a minimum of 3 characters!",
     );
   });
 
@@ -37,7 +38,7 @@ test.describe("test create account page", () => {
     await createPage.fillFields("Dino DInz", "dinodin");
     await createPage.assertUserCreation();
     await expect(createPage.invalidUserWarning).toHaveText(
-      "Username is already taken!"
+      "Username is already taken!",
     );
   });
 
@@ -48,7 +49,7 @@ test.describe("test create account page", () => {
     await createPage.fillFields("Dino Dinz", uniqueUsername);
     await createPage.clickCreateUser();
     await expect(createPage.invalidUserWarning).toHaveText(
-      "Please provide a 1x1 avatar Image!"
+      "Please provide a 1x1 avatar Image!",
     );
   });
 
@@ -59,7 +60,7 @@ test.describe("test create account page", () => {
     await createPage.clickLoginHere();
     await createPage.waitForLoading();
     await expect(createPage.Page).toHaveURL(
-      "https://ncnewstagram.netlify.app/login"
+      "https://ncnewstagram.netlify.app/login",
     );
     await expect(loginPage.loginButton).toBeVisible();
   });

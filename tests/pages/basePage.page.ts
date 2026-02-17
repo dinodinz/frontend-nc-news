@@ -1,19 +1,19 @@
-import { Page, type Locator } from "@playwright/test";
+import { type Page } from "@playwright/test";
 
 export abstract class BasePage {
   constructor(protected page: Page) {}
 
-  abstract goto(): Promise<void>;
+  protected abstract goto(): Promise<void>;
 
-  protected get currentUrl(): string {
+  public get currentUrl(): string {
     return this.page.url();
   }
 
-  protected async gotoPath(path: string) {
+  public async gotoPath(path: string): Promise<void> {
     await this.page.goto(`${process.env.BASE_URL}${path}`);
   }
 
-  public async waitForLoading() {
-    await this.page.waitForLoadState("networkidle");
+  public async waitForLoading(): Promise<void> {
+    await this.page.waitForLoadState("domcontentloaded");
   }
 }

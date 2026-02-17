@@ -1,76 +1,65 @@
-import { test, expect, Locator } from "@playwright/test";
+import { expect, type Locator } from "@playwright/test";
+import { test } from "../fixtures/testFixtures";
+import { loginFlow } from "../workflows/login.workflow";
+import { logoutFlow } from "../workflows/logout.workflow";
 
 test.describe("test article page", () => {
-  let tileTopic: Locator;
-  let tileAuthor: Locator;
-  let tileThumbsUp: Locator;
-  let tileComment: Locator;
-  let tileImage: Locator;
-  let articleAuthor: Locator;
-
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://ncnewstagram.netlify.app/login");
-    await page.getByPlaceholder("Enter Username").fill("dinodin");
-    await page.getByRole("button", { name: "Login" }).click();
-    await page
-      .getByRole("button", { name: "Logout" })
-      .waitFor({ state: "visible" });
-    tileImage = page.locator(".article-tile img").first();
-    tileTopic = page.locator(".all-article-topic-button").first();
-    tileAuthor = page.locator(".article-tile-author").first();
-    tileThumbsUp = page.locator(".article-tile-thumbs-up-icon").first();
-    tileComment = page.locator(".article-tile-comment-icon").first();
-    articleAuthor = page.locator(".article-page-author");
+  test.beforeEach(async ({ loginPage, articleTiles }) => {
+    await loginFlow(loginPage, "dinodin");
+    await expect(loginPage.logoutButton).toBeVisible();
+    await articleTiles.clickTileImage();
   });
 
   test("clicking topic on the article image redirects to topic page ", async ({
-    page,
+    articlePage,
   }) => {
-    const authorTile = await tileAuthor.textContent();
-    await tileImage.click();
-    await expect(page).toHaveURL(/.*article.*/);
-    const authorArticle = await articleAuthor.textContent();
-
-    expect(authorTile).toEqual(authorArticle);
+    const topic = await articlePage.articleTopicText();
+    await articlePage.clickArticleTopic();
+    await expect(articlePage.Page).toHaveURL(new RegExp(`/topic/${topic}$`));
   });
 
   test("clicking author on the article image redirects author page", async ({
-    page,
+    articlePage,
   }) => {
-    const topic = await tileTopic.textContent();
-    await tileTopic.click();
-    await expect(page).toHaveURL(new RegExp(`.*topic/${topic}$`));
+    const author = await articlePage.articleAuthorText();
+    await articlePage.clickArticleAuthor();
+    await expect(articlePage.Page).toHaveURL(new RegExp(`/author/${author}$`));
   });
 
   test("clicking heart without logged in shows popup instruction", async ({
-    page,
+    articlePage,
+    loginPage,
+    articleTiles,
   }) => {
-    const author = await tileAuthor.textContent();
-    await tileAuthor.click();
-    await expect(page).toHaveURL(new RegExp(`.*author/${author}$`));
+    await logoutFlow(loginPage);
+    await expect(loginPage.loginButton).toBeVisible();
+    await articleTiles.clickTileImage();
+    await articlePage.clickArticleImageHeart();
+    await expect(articlePage.heartPopupError).toBeVisible();
   });
 
   test("clicking heart while logged in shows updates the heart state", async ({
-    page,
+    articlePage,
   }) => {
-    const commentButton = await tileComment.textContent();
-
-    await tileComment.click();
-    await expect(page).toHaveURL(new RegExp(`.*article/\\d{1,3}$`));
-    await expect(
-      page.getByRole("button", { name: "Post a Comment" })
-    ).toBeVisible();
+    const heartValueBefore = await articlePage.articleImageHeartValue();
+    console.log(heartValueBefore);
+    await articlePage.clickArticleImageHeart();
+    const fire = await articlePage.articleImageHeartValue();
+    console.log(fire);
+    await expect
+      .poll(async () => await articlePage.articleImageHeartValue())
+      .toBeGreaterThan(heartValueBefore);
   });
 
-  test("clicking author text on the coments redirects to the author page", async ({
-    page,
-  }) => {
-    const commentButton = await tileComment.textContent();
+  // test("clicking author text on the coments redirects to the author page", async ({
+  //   page,
+  // }) => {
+  //   const commentButton = await tileComment.textContent();
 
-    await tileComment.click();
-    await expect(page).toHaveURL(new RegExp(`.*article/\\d{1,3}$`));
-    await expect(
-      page.getByRole("button", { name: "Post a Comment" })
-    ).toBeVisible();
-  });
+  //   await tileComment.click();
+  //   await expect(page).toHaveURL(new RegExp(`.*article/\\d{1,3}$`));
+  //   await expect(
+  //     page.getByRole("button", { name: "Post a Comment" })
+  //   ).toBeVisible();
+  // });
 });

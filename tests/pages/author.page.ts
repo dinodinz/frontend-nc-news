@@ -1,6 +1,5 @@
-import { type Locator } from "@playwright/test";
+import { type Locator, type Page } from "@playwright/test";
 import { BasePage } from "./basePage.page";
-import { Page } from "playwright";
 
 export class AuthorPage extends BasePage {
   protected articleImageTopic: Locator;
