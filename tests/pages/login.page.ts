@@ -1,22 +1,30 @@
-import { type Locator, type Response } from "@playwright/test";
-import { Page } from "playwright";
+import { type Locator, type Response, type Page } from "@playwright/test";
 import { BasePage } from "./basePage.page";
 
 export class LoginPage extends BasePage {
-  protected usernameField: Locator;
-  protected loginbutton: Locator;
-  protected signUpButton: Locator;
+  protected _usernameField: Locator;
+  protected _loginButton: Locator;
+  protected _signUpButton: Locator;
 
   constructor(protected page: Page) {
     super(page);
-    this.usernameField = page.getByRole("textbox");
-    this.loginbutton = page.getByRole("button", { name: "Login" });
-    this.signUpButton = page.getByText("Sign up now!", {
+    this._usernameField = page.getByRole("textbox");
+    this._loginButton = page.getByRole("button", { name: "Login" });
+    this._signUpButton = page.getByText("Sign up now!", {
       exact: true,
     });
   }
 
-  async goto(): Promise<void> {
+  private get usernameField(): Locator {
+    return this._usernameField;
+  }
+
+  public async fillUsername(username: string): Promise<void> {
+    await this.usernameField.waitFor({ state: "visible" });
+    this.usernameField.fill(username);
+  }
+
+  public async goto(): Promise<void> {
     await this.page.goto("/login");
   }
 
@@ -25,28 +33,37 @@ export class LoginPage extends BasePage {
   }
 
   public get loginButton(): Locator {
-    return this.loginbutton;
+    return this._loginButton;
+  }
+
+  public async clickLoginButton(): Promise<void> {
+    await this.loginButton.waitFor({ state: "visible" });
+    this.loginButton.click();
+  }
+
+  public async waitForLoginButton(): Promise<void> {
+    await this.loginButton.waitFor({ state: "visible" });
   }
 
   public get logoutButton(): Locator {
     return this.page.getByRole("button", { name: "Logout" });
   }
 
+  public async clickLogoutButton(): Promise<void> {
+    await this.logoutButton.waitFor({ state: "visible" });
+    this.logoutButton.click();
+  }
+
   public get loginError(): Locator {
     return this.page.locator(".invalid-username-error");
   }
 
-  async clickSignUp(): Promise<void> {
-    await this.signUpButton.waitFor({ state: "visible" });
-    await this.signUpButton.click();
+  public async clickSignUp(): Promise<void> {
+    await this._signUpButton.waitFor({ state: "visible" });
+    await this._signUpButton.click();
   }
 
-  async login(username: string): Promise<void> {
-    await this.usernameField.fill(username);
-    await this.loginbutton.click();
-  }
-
-  async assertLoginSuccess(username: string): Promise<Response> {
+  public async assertLoginSuccess(username: string): Promise<Response> {
     const response = await this.page.waitForResponse(
       `https://northcoders-reddit.onrender.com/api/users/${username}`
     );

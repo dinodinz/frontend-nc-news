@@ -1,6 +1,5 @@
-import { type Locator } from "@playwright/test";
+import { type Locator, type Page } from "@playwright/test";
 import { BasePage } from "./basePage.page";
-import { Page } from "playwright";
 
 export class ArticleTiles extends BasePage {
   protected tiletopic: Locator;
@@ -20,19 +19,21 @@ export class ArticleTiles extends BasePage {
     this.articleAuthor = page.locator(".article-page-author");
   }
 
-  async goto(): Promise<void> {
+  public async goto(): Promise<void> {
     await this.page.goto("/");
   }
 
-  get tileAuthor(): Locator {
+  public get tileAuthor(): Locator {
     return this.tileauthor;
   }
 
-  async clickTileAuthor(): Promise<void> {
+  public async clickTileAuthor(): Promise<void> {
+    await this.tileAuthor.waitFor({ state: "visible" });
     this.tileAuthor.click();
   }
 
-  async tileAuthorText(): Promise<string | null> {
+  public async tileAuthorText(): Promise<string | null> {
+    await this.tileAuthor.waitFor({ state: "visible" });
     const author = await this.tileAuthor.textContent();
     if (author === null) throw new Error("Tile author text not found");
     return author;
@@ -42,16 +43,16 @@ export class ArticleTiles extends BasePage {
     return this.page;
   }
 
-  get commentButton(): Locator {
+  public get commentButton(): Locator {
     return this.tilecomment;
   }
 
-  async clickCommentButton(): Promise<void> {
+  public async clickCommentButton(): Promise<void> {
     await this.commentButton.waitFor({ state: "visible" });
     this.commentButton.click();
   }
 
-  async clickTileImage(): Promise<void> {
+  public async clickTileImage(): Promise<void> {
     await this.tileimage.waitFor({ state: "visible" });
     await this.tileimage.click();
   }
@@ -65,7 +66,7 @@ export class ArticleTiles extends BasePage {
     await this.tileTopic.click();
   }
 
-  async tileTopicText(): Promise<string | null> {
+  public async tileTopicText(): Promise<string | null> {
     const topic = await this.tileTopic.textContent();
     if (topic === null) throw new Error("Tile topic text not found");
     return topic;
